@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Controlled Popup Demo</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      text-align: center;
+      padding-top: 50px;
+    }
+    button {
+      padding: 10px 20px;
+      font-size: 16px;
+      margin: 10px;
+    }
+  </style>
+</head>
+<body>
+  <h1>Don't Click This Button!</h1>
+  <p>This is an educational example to show why you should not click random buttons or links!</p>
+  <button id="triggerPopups">Click me!</button>
+  <button id="closePopups" disabled>Close All Popups</button>
+
+  <script>
+    // Define a PopupManager class
+    class PopupManager {
+      constructor() {
+        this.popupCount = 0;
+        this.maxPopups = 5;
+        this.popups = []; // Array to store open popup references
+      }
+
+      // Method to open popups
+      openPopup() {
+        this.popupCount++;
+        const { width, height } = this.calculatePopupSize();
+        const { left, top } = this.calculatePopupPosition(width, height);
+
+        // Open the popup with random size and position
+        const newWindow = window.open('', '', `width=${width},height=${height},left=${left},top=${top}`);
+        if (newWindow) {
+          this.popups.push(newWindow); // Store the popup reference
+          newWindow.document.write(`<p>This is popup #${this.popupCount}</p>`);
+          newWindow.document.write(`<button onclick="window.close()">Close me</button>`);
+          
+          // Recursively open more popups after a short delay
+          setTimeout(() => {
+            if (this.popupCount < this.maxPopups) {
+              this.openPopup();
+            } else {
+              // Enable the "Close All Popups" button after all popups are opened
+              document.getElementById('closePopups').disabled = false;
+            }
+          }, 1000);
+        }
+      }
+
+      // Method to close all popups
+      closeAllPopups() {
+        this.popups.forEach(popup => {
+          if (!popup.closed) {
+            popup.close(); // Close each popup if it's not already closed
+          }
+        });
+        this.popups = []; // Clear the popups array
+        document.getElementById('closePopups').disabled = true; // Disable the button after closing
+      }
+
+      // Method to calculate random popup size (40% of the screen)
+      calculatePopupSize() {
+        const screenWidth = window.screen.width;
+        const screenHeight = window.screen.height;
+        return {
+          width: Math.floor(screenWidth * 0.4),
+          height: Math.floor(screenHeight * 0.4),
+        };
+      }
+
+      // Method to calculate random position for the popup
+      calculatePopupPosition(width, height) {
+        const screenWidth = window.screen.width;
+        const screenHeight = window.screen.height;
+        return {
+          left: Math.floor(Math.random() * (screenWidth - width)),
+          top: Math.floor(Math.random() * (screenHeight - height)),
+        };
+      }
+    }
+
+    // Create an instance of PopupManager
+    const popupManager = new PopupManager();
+
+    // Add event listener to trigger popups on button click
+    document.getElementById('triggerPopups').addEventListener('click', () => {
+      if (confirm("Are you sure you want to proceed? This will open multiple popups.")) {
+        popupManager.openPopup();
+      }
+    });
+
+    // Add event listener to close all popups
+    document.getElementById('closePopups').addEventListener('click', () => {
+      popupManager.closeAllPopups();
+    });
+  </script>
+</body>
+</html>

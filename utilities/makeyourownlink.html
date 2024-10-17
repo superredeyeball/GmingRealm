@@ -1,0 +1,340 @@
+<html lang="en">
+
+<head>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-B9R93ESZH8"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+
+        gtag('config', 'G-B9R93ESZH8');
+    </script>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" href="../images/ico.ico" type="image/x-icon">
+    <link rel="stylesheet" href="/storage/css/apps.css">
+    <title>Utilities | GmingRealm</title>
+
+    <meta name="description"
+        content="GmingRealm is a one of a kind, highly sophisticated, unblocked gaming website! This game site has many features that others do not have, such as having NO ads, tab hiding + hiding from history, panic key combo, themes, and more! Also called Gaming Realm or GamingRealm.">
+    <meta property="og:site_name" content="Gaming Realm">
+    <meta property="og:title" content="Gaming Realm">
+    <meta property="og:type" content="website">
+    <meta property="og:description"
+        content="GmingRealm is a one of a kind, highly sophisticated, unblocked gaming website! This game site has many features that others do not have, such as having NO ads, tab hiding + hiding from history, panic key combo, themes, and more! Also called Gaming Realm or GamingRealm.">
+
+    <script>
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', function () {
+                navigator.serviceWorker.register('/offline-worker.js').then(function (registration) {
+                    console.log('service worker initalised! scope:', registration.scope);
+
+                    navigator.serviceWorker.addEventListener('message', function (event) {
+                        if (event.data === 'cached') {
+                            document.getElementById('cache-status').style.display = 'block';
+                        }
+                    });
+                }, function (error) {
+                    console.log('ack, error with serviceworker! ', error);
+                });
+            });
+        }
+    </script>
+</head>
+
+<body>
+    <h1>pr&#173;oxy</h1>
+    <div style="width: 800px;">
+        <p>This files includes a guide on how to make your own unblockers! You can do this with a free DNS provider or with
+            a deployment service like Render or Vercel! <br> <br><br>
+            <strong>Exploit not working? Need help?</strong> Click to fill a <a
+                href="https://forms.gle/pGrirP5YAxmKa6kB6">form</a>. With this feedback I will make the instructions easier to
+            understand! <br>
+        </p>
+        <h2 id="table-of-contents">Table of Contents:</h2>
+        <ul>
+            <li><a href="#making-links-via-freedns">Deploying via free DNS subdomain</a></li>
+            <li><strong>Make sure to have a Github account for the deployment options below!!</strong></li>
+            <li><a href="#make-links-with-vercel">Deploying via Vercel</a></li>
+            <li><a href="#make-links-with-cyclic">Deploying via Cyclic</a></li>
+            <li><a href="#make-links-with-render">Deploying via Render</a></li>
+        </ul>
+        <h4 id="coming-soon-deploying-with-providers-like-vercel-render-cyclic-and-glitch">(COMING SOON) Deploying with
+            providers like Vercel, Render, Cyclic, and Glitch</h4>
+        <h3 id="other-files">Other files:</h3>
+        <p><strong>Exploits, Bypasses, Bookmarklets:</strong> Go <a
+                href="https://github.com/wea-f/ByePassHub/blob/main/Exploits/README.md">here</a> <br><br>
+            <strong>Unblockers:</strong> Go <a href="https://github.com/wea-f/ByePassHub/blob/main/mainUnblockers.md">here</a>
+            or go to the <a href="http://mainUnblockers.md">mainUnblockers.md</a> file. <br><br>
+            <strong>Main Games:</strong> Go <a href="https://github.com/wea-f/ByePassHub/blob/main/Games.md">here</a> or to
+            the <a href="http://games.md">games.md</a> file<br><br>
+            <strong>Kahoot, Gimkit, Blooket (and more) Cheats:</strong> Go <a
+                href="https://github.com/wea-f/ByePassHub//blob/main/Cheats.md">here</a> or go to the <a
+                href="http://Cheats.md">Cheats.md</a> file. <br><br>
+            <strong>Movies and Anime:</strong> Go <a
+                href="https://github.com/wea-f/ByePassHub/blob/main/Movies%26Anime.md">here</a> or to the movies&amp;<a
+                href="http://anime.md">anime.md</a> file <br><br>
+            <strong>Back to Main Hub:</strong> Go <a href="https://github.com/wea-f/ByePassHub/blob/main/README.md">here</a>
+            or go to the main <a href="http://README.md">README.md</a> file <br>
+        </p>
+        <hr>
+        <h3 id="making-links-via-freedns">Making links via freeDNS</h3>
+        <ol>
+            <li>
+                <p>Go to <a href="https://freedns.afraid.org/">https://freedns.afraid.org/</a>, if it’s blocked, try this on
+                    another device (you can’t put the site through an unblocker, it won’t work.)</p>
+            </li>
+            <li>
+                <p>This is probably your first time, so click “Sign Up for Free.” If you already have an account, go to step 5.
+                </p>
+            </li>
+            <li>
+                <p>Fill out all of the information in the boxes.</p>
+                <blockquote>
+                    <p>For your first and last name, you don’t have to put your real name.</p>
+                </blockquote>
+                <blockquote>
+                    <p>For the user ID, you can put anything, make sure it’s unique.</p>
+                </blockquote>
+                <blockquote>
+                    <p>For your email, you could use a temporary email provider like <a
+                            href="https://temp-mail.org/">TempMail</a>
+                        so you can create more links in the future.</p>
+                </blockquote>
+            </li>
+            <li>
+                <p>Press sign-up after filling the boxes, and complete the email activation.</p>
+            </li>
+            <li>
+                <p>After making an account, now we are going to register the link. Go to this page in freeDNS: <a
+                        href="https://freedns.afraid.org/domain/registry">https://freedns.afraid.org/domain/registry</a></p>
+                <blockquote>
+                    <p>Alternatively, press “Subdomains” on the left side of the page, then “Add subdomain”, then on the
+                        “Domain”
+                        box click on the dropdown, then click “many, many more.” After that click “Shared Domain Registry” on
+                        the
+                        first sentence.</p>
+                </blockquote>
+            </li>
+            <li>
+                <p>Click a domain link that you would like to use. (e.g. <a
+                        href="http://chickenkiller.com">chickenkiller.com</a>)</p>
+                <blockquote>
+                    <p>Make sure to select a domain that is unblocked for you. Domains that have a low popularity are probably
+                        unblocked. <br><br>
+                        Also make sure that the domain is public.</p>
+                </blockquote>
+            </li>
+            <li>
+                <p>In the configurations page, on the top make sure “A” record type is selected (it should be already).</p>
+            </li>
+            <li>
+                <p>Enter the name of the subdomain, it can be anything. (<a
+                        href="http://subdomainName.chosenDomain.com">subdomainName.chosenDomain.com</a>)</p>
+            </li>
+            <li>
+                <p>For the destination, it depends on what unblocker you want to use. You can try to googling it or joining
+                    discord servers, here is a helpful table I created:</p>
+            </li>
+        </ol>
+        
+        <table>
+            <thead>
+                <tr>
+                    <th>Unblocker</th>
+                    <th>Type</th>
+                    <th>IP Destination</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Abyss</td>
+                    <td>Web browser</td>
+                    <td><code>5.161.43.35</code></td>
+                </tr>
+                <tr>
+                    <td>Astroid</td>
+                    <td>Games, Unblocker, Emulators, Apps</td>
+                    <td><code>5.161.68.227</code></td>
+                </tr>
+                <tr>
+                    <td>Artclass</td>
+                    <td>Unblocker, Games, Apps</td>
+                    <td><code>193.26.115.218</code></td>
+                </tr>
+                <tr>
+                    <td>Shadow</td>
+                    <td>Web Browser</td>
+                    <td><code>104.243.38.18</code></td>
+                </tr>
+                <tr>
+                    <td>Kitty Cat</td>
+                    <td>Proxy, games, apps</td>
+                    <td><code>66.94.122.218</code></td>
+                </tr>
+                <tr>
+                    <td>Kazwire</td>
+                    <td>Proxy, games, apps</td>
+                    <td><code>209.222.97.244</code></td>
+                </tr>
+                <tr>
+                    <td>Plexile Arcade</td>
+                    <td>Proxy, games, apps</td>
+                    <td><code>216.24.57.1</code></td>
+                </tr>
+                <tr>
+                    <td>Doge Unblocker</td>
+                    <td>Proxy, games, apps</td>
+                    <td><code>38.175.196.242</code></td>
+                </tr>
+                <tr>
+                    <td>Interstellar</td>
+                    <td>Proxy, games, apps</td>
+                    <td><code>5.161.66.1</code></td>
+                </tr>
+                <tr>
+                    <td>Rammerhead</td>
+                    <td>Web Browser</td>
+                    <td><code>108.181.32.77</code></td>
+                </tr>
+                <tr>
+                    <td>Phantom Games</td>
+                    <td>tons of games</td>
+                    <td><code>109.122.46.55</code></td>
+                </tr>
+                <tr>
+                    <td><em>May or may not work:</em> Selenite</td>
+                    <td>tons of games</td>
+                    <td><code>5.161.118.69</code></td>
+                </tr>
+                <tr>
+                    <td><em>May or may not work:</em> Tinf0il</td>
+                    <td>Proxy, games, apsp</td>
+                    <td><code>129.213.65.72</code></td>
+                </tr>
+                <tr>
+                    <td>Other unblockers have specific tutorials in their discord servers. To find their discord server, go to
+                        the
+                        <a
+                            href="https://github.com/wea-f/ByePassHub/blob/main/mainUnblockers.md#caution-many-of-these-servers-will-ban-you-for-leaking-leaks-publicly-use-it-for-private-use-only">Proxy
+                            Discord Servers section</a> in the main Unblockers file.
+                    </td>
+                    <td></td>
+                    <td></td>
+                </tr>
+            </tbody>
+        </table>
+        <ol start="10">
+            <li>After putting the IP destination to your subdomain, press “save.” Complete the captcha.</li>
+            <li>Wait a couple minutes for your site to register and go to the link you created!</li>
+            <li>OPTIONAL: If you want, you can donate your created, working link in this <a
+                    href="https://forms.gle/FaHsGQxFTnZ6uSvn9">form</a>! I will put the link in the <a
+                    href="http://mainUnblockers.md">mainUnblockers.md</a> file, this will be highly appreciated!</li>
+        </ol>
+        <h3 id="make-links-with-vercel">Make links with Vercel</h3>
+        <p>Link: <a
+                href="https://vercel.com/new/clone?repositoryurl=">https://vercel.com/new/clone?repositoryurl=</a><code>ReplaceThisWithRepositoryURL</code>
+        </p>
+        <ol>
+            <li>Replace the filler with an unblocker repository. For example, <a
+                    href="http://vercel.com/new/clone?repositoryurl=https://github.com/dogenetwork/v4">vercel.com/new/clone?repositoryurl=https://github.com/dogenetwork/v4</a>
+                for deploying a doge unblocker link. Here’s more (you can find your own too):
+                <blockquote>
+                    <p>Interstellar: <code>https://github.com/InterstellarNetwork/Interstellar</code> <br><br>
+                        Snorlax’s Cave: <code>https://github.com/Snorlaxs-Cave/Snorlaxs-Cave-v2</code> <br><br>
+                        Artclass: <code>https://github.com/art-class/v4</code> <br><br>
+                        Utopia: <code>https://github.com/UtopiaUnblocker/Utopia</code> <br><br>
+                        Abyss Web: <code>https://github.com/AbyssServices/Abyss-Web</code> <br><br>
+                        Astroid: <code>https://github.com/VyperGroup/astroidv3</code> <br><br>
+                        Shuttle: <code>https://github.com/shuttlenetwork/shuttle</code> <br><br>
+                        Tinf0il: <code>https://github.com/Aluminum-Depot/Tinf0il-new</code> <br><br>
+                        Shadow Tabbed: <code>https://github.com/xnightless/Shadownetwork</code> <br></p>
+                </blockquote>
+            </li>
+            <li>Log in to your vercel account with Github, sign up if needed with Github (you will have to authorize).</li>
+            <li>In the “Create Git Repository,” enter the repository name that will be linked to your unblocker, it can be
+                anything.</li>
+            <li>Click “Create”</li>
+            <li>After a few moments, go to the link that you just created, which should be (repositoryName).vercel.app</li>
+        </ol>
+        <h3 id="make-links-with-cyclic">Make links with Cyclic</h3>
+        <ol>
+            <li>Go to <code>app.cyclic.sh/</code></li>
+            <li>Login with Github, sign up with github if you don’t have an account.</li>
+            <li>Link: <a
+                    href="http://app.cyclic.sh/api/app/deploy/">app.cyclic.sh/api/app/deploy/</a><code>repositorynamefiller</code>
+            </li>
+            <li>The repository name filler should be replaced with one of the following of your choice (you can find your own
+                too):
+                <blockquote>
+                    <p>Interstellar: <code>InterstellarNetwork/Interstellar</code> <br><br>
+                        Snorlax’s Cave: <code>Snorlaxs-Cave/Snorlaxs-Cave-v2</code> <br><br>
+                        Artclass: <code>art-class/v4</code> <br><br>
+                        Utopia: <code>UtopiaUnblocker/Utopia</code> <br><br>
+                        Abyss Web: <code>AbyssServices/Abyss-Web</code> <br><br>
+                        Astroid: <code>VyperGroup/astroidv3</code> <br><br>
+                        Shuttle: <code>shuttlenetwork/shuttle</code> <br><br>
+                        Tinf0il: <code>Aluminum-Depot/Tinf0il-new</code> <br><br>
+                        Doge Unblocker: <code>dogenetwork/v4</code> <br><br>
+                        Shadow Tabbed: <code>https://github.com/xnightless/Shadownetwork</code> <br></p>
+                </blockquote>
+            </li>
+            <li>Example: <a
+                    href="http://app.cyclic.sh/api/app/deploy/shuttlenetwork/shuttle">app.cyclic.sh/api/app/deploy/shuttlenetwork/shuttle</a>
+                for a shuttle deployment, go to that link.</li>
+            <li>Follow the instructions on the webpage, if it has an error, “Unathorized,” make sure to sign in with github on
+                step 1.</li>
+            <li>Press “Connect”, and you will need to confirm it with github.</li>
+            <li>Continue following the directions, it’s pretty straightforward, and the deployed link will be at the bottom
+                once you finish!</li>
+        </ol>
+        <h3 id="make-links-with-render">Make links with Render</h3>
+        <p>(coming soon!)<br>
+            IGNORE ALL OF THIS, Doesn’t WORK… <br><br>
+            Link: <a href="https://render.com/deploy?repo=(repositoryURL)">https://render.com/deploy?repo=(repositoryURL)</a>
+        </p>
+        <ol>
+            <li>With the above link, substitute the repositoryURL with one of the below (you can find your own too):
+                <blockquote>
+                    <p>Interstellar: <code>https://github.com/InterstellarNetwork/Interstellar</code> <br><br>
+                        Snorlax’s Cave: <code>https://github.com/Snorlaxs-Cave/Snorlaxs-Cave-v2</code> <br><br>
+                        Artclass: <code>https://github.com/art-class/v4</code> <br><br>
+                        Utopia: <code>https://github.com/UtopiaUnblocker/Utopia</code> <br><br>
+                        Abyss Web: <code>https://github.com/AbyssServices/Abyss-Web</code> <br><br>
+                        Astroid: <code>https://github.com/VyperGroup/astroidv3</code> <br><br>
+                        Shuttle: <code>https://github.com/shuttlenetwork/shuttle</code> <br><br>
+                        Tinf0il: <code>https://github.com/Aluminum-Depot/Tinf0il-new</code> <br><br>
+                        Doge Unblocker: <code>https://github.com/dogenetwork/v4</code> <br><br>
+                        Shadow Tabbed: <code>https://github.com/xnightless/Shadownetwork</code> <br></p>
+                </blockquote>
+            </li>
+            <li>Example: <a
+                    href="https://render.com/deploy?repo=https://github.com/Shadowproxynetwork/Shadownetwork">https://render.com/deploy?repo=https://github.com/Shadowproxynetwork/Shadownetwork</a>
+            </li>
+            <li>It will prompt you to sign in, sign up if needed. You should sign in/sign up with Github.</li>
+            <li>For the blueprint name, put anything</li>
+            <li>For the branch, keep it at <code>main</code></li>
+        </ol>
+    </div>
+
+    <p> // all pr&#173;oxys on this website are complete copyright & property of their respective owners \\</p>
+
+
+
+    <script src="/storage/js/cloak.js"></script>
+    <script src="/storage/js/theme.js"></script>
+    <script src="/storage/js/cookie.js"></script>
+    <script src="/storage/js/apps.js"></script>
+    <div class="dizzy-embed-container"
+        style="position: fixed; bottom: 20px; right: 20px; z-index: 1000; background-color: transparent; padding: 10px;">
+        <script src="https://cdn.jsdelivr.net/npm/@widgetbot/crate@3" async defer>
+            new Crate({
+                server: '1237829235998064651', // Class Y
+                channel: '1237829235998064654' // #general
+            });
+        </script>
+    </div>
+</body>
+
+</html>

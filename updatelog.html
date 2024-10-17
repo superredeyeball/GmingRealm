@@ -45,7 +45,7 @@
         <br>
         <br>
         <h1>updates</h1>
-        <h3 style="text-align: center;"><a href="index.html" style="color: var(--text-color); text-decoration: underline;">homepage</a> • <a href="https://github.com/a456pur/seraph" target="_blank" style="text-decoration: underline; color: var(--text-color)">github</a></h3>
+        <h3 style="text-align: center;"><a href="index.html" style="color: var(--text-color); text-decoration: underline;">homepage</a> • <a href="https://github.com/superblueeyeball/superblueeyeball.github.io" target="_blank" style="text-decoration: underline; color: var(--text-color)">github</a></h3>
         
         <select id="version-select">
           <option value="v28">version 28</option>
@@ -53,14 +53,27 @@
 
       <div id="v28" class="version-content default">
         <h2>version 28</h2>
-        <h3 style="text-align: center;"><a href="#plans-for-the-next-update" style="color: inherit;">What are your plans for the next update?</a></h3>
-        <h3 style="text-align: center;">What was added in this update?</h3>
+        <h3 style="text-align: center;"><a href="#plansv28" style="color: inherit;">What are your plans for the next update?</a></h3>
+        <h3 style="text-align: center;"><a href="#addedv28" style="color: inherit;">What was added in this update?</a></h3>
         <h4 style="text-align: center;">Date of update: today</h4>
-        <h2>Plans for the next update</h2>
+        <h2 id="plansv28">Plans for the next update</h2>
         <ul>
           <li style="text-align: center;">Add more games</li>
+          <li>Fix link behavior setting</li>
+          <li>Add more pages in the utilities page & apps page (ASCII art fonts + images + videos, Better-SAM (text to speech) and more</li>
+          <li>Fix all tab cloaking issues and add more tab cloaking options (rename tab to be something else such as a student portal)</li>
+          <li>Add more themes and customizability for the custom theme</li>
+          <li>Add "downloadable" category in category picker</li>
+          <li>Give certain games multiple categorys if they fit</li>
+          <li>Add game alternate names (Example: Friday Night Funkin will show up if you search FNF)</li>
+          <li>Add options to disable or enable unbl&#173;ocked dis&#173;cord widget.</li>
+          <li>Add full unbl&#173;ocked dis&#173;cord page in utilities</li>
+          <li>Add "particles.js" in apps page</li>
+          <li>Add options to hide tab in "about:blank" tab or "blob:example.com/234636" tab, as well as hide tab from history when pressing hide tab.</li>
+          <li>Add button to go to the previous page or the next page in tab that opens when pressing hide tab button.</li>
+          <li>Add "escape road" in games page (Kids at folks middle school play it alot apparently)</li>
         </ul>
-        <h2>What was added in this update</h2>
+        <h2 id="addedv28">What was added in this update</h2>
         <ul>
           <li>offline mode
             <ul>
@@ -106,7 +119,8 @@
                   <li>Also fixed friday night funkin because of many requests</li>
                 </ul>
               </li>
-              <li>added 4 apps to the new dedicated apps page
+              <li>added new dedicated apps page
+                <li>A few of the apps that were added:</li>
                 <ul>
                   <li>calculator: a simple calculator, allowing you to perform simple addition, subtraction, multiplication and division</li>
                   <li>etch a sketch: create digital pixel drawings - mimicking the experience of an etch-a-sketch with quality of life features</li>
@@ -118,12 +132,6 @@
           </li>
           <li>settings redone
             <ul>
-              <li>new data management section
-                <ul>
-                  <li>import/export data into save files, allowing for transfer over multiple sites</li>
-                  <li>clear all data off the site with the clear data button</li>
-                </ul>
-              </li>
               <li>new panic mode
                 <ul>
                   <li>customise a panic key (defaults to ctrl+shift+p)</li>
@@ -140,22 +148,13 @@
           </li>
           <li>other changes
             <ul>
-              <li>homepage now has dedicated big settings button</li>
-              <li>shrunk down app size slightly</li>
+              <li>Changed app button size</li>
               <li>added update popup for whenever there is a new update - shown on the homepage</li>
               <li>404 page now has a previous page button</li>
-              <li>fixed errors with 404 page styling, images and fonts</li>
-              <li>fixed errors with 404 linkbar links redirecting to wrong parts of the site</li>
-              <li>mobile users are now not automatically redirected to the mobile friendly version of the site on the homepage</li>
               <li>background image bandwidth has been significantly downgraded by 50-90%</li>
               <li>game thumbnails total bandwidth reduced significantly (19.2mb > 2.2mb)</li>
-              <li>favicon is now improved to give a more rounded design</li>
-              <li>fixed homepage size on mozilla browsers</li>
-              <li>star/cross icon is now an image icon instead of using unicode characters</li>
-              <li>themes.css now is used in place of having all stylesheets have different schemes</li>
-              <li>polished readme file, adding more content to it and removing unnecessary information</li>
-              <li>changed placeholder image (displays when there is no current thumbnail for a game)</li>
-              <li>css stylesheets have been renamed to make it easier to sort through</li>
+              <li>favicon is now on all parts of the site and rounded for the favicon</li>
+              <li>new placeholder image (displays when there is no current thumbnail for a game)</li>
             </ul>
           </li>
         </ul>        
@@ -181,5 +180,14 @@
 
 <script src="storage/js/cloak.js"></script>
 <script src="storage/js/theme.js"></script>
+<div class="dizzy-embed-container"
+        style="position: fixed; bottom: 20px; right: 20px; z-index: 1000; background-color: transparent; padding: 10px;">
+        <script src="https://cdn.jsdelivr.net/npm/@widgetbot/crate@3" async defer>
+          new Crate({
+            server: '1296286781821554709', // GmingRealm Chat
+            channel: '1296286782257631242' // #general
+          });
+        </script>
+      </div>
   </body>
 </html>

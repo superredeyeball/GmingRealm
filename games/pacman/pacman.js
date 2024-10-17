@@ -10010,9 +10010,9 @@ var preNewGameState = (function() {
         function() { 
             exitTo(aboutGameState);
         });
-	menu.addTextButtonLink("SERAPH",
+	menu.addTextButtonLink("GMINGREALM",
         function() {
-            window.open("https://seraph.reveriestudios.online");
+            window.open("https://superblueeyeball.github.io");
         });
     /*
 	dsg hide back button
@@ -10616,7 +10616,7 @@ var aboutState = (function(){
     var menu = new Menu("", 2*tileSize,mapHeight-11*tileSize,mapWidth-4*tileSize,3*tileSize,tileSize,tileSize+"px ArcadeR", "#EEE");
     menu.addTextButton("GO TO PROJECT PAGE",
         function() {
-            window.open("https://github.com/a456pur/seraph");
+            window.open("https://github.com/superblueeyeball/superblueeyeball");
         });
     menu.addTextButton("BACK",
         function() {

@@ -35,13 +35,25 @@ function getCookie(name) {
     return matches ? decodeURIComponent(matches[1]) : undefined;
 }
 
-document.addEventListener("DOMContentLoaded", function() {
+document.addEventListener("DOMContentLoaded", function () {
+    setTimeout(() => {
+        updateFavicon();
+    }, 100); // Adjust this delay if needed
+});
+
+function updateFavicon() {
     const selectedPreset = getCookie("tabCloakPreset");
+
+    console.log("Selected Preset:", selectedPreset);
 
     const presets = {
         google: {
             favicon: "/images/icons/google.ico",
             title: "Google"
+        },
+        nothing: {
+            favicon: "/images/icons/nothing.ico",
+            title: "​"
         },
         bing: {
             favicon: "/images/icons/bing.ico",
@@ -79,16 +91,17 @@ document.addEventListener("DOMContentLoaded", function() {
 
         const newFavicon = document.createElement("link");
         newFavicon.rel = "icon";
-        newFavicon.href = preset.favicon;
-    
+        newFavicon.href = preset.favicon + '?v=' + new Date().getTime();  // Adds a timestamp to prevent caching
+
         const existingFavicon = document.querySelector("link[rel='icon']");
         if (existingFavicon) {
             document.head.removeChild(existingFavicon);
         }
-    
+
         document.head.appendChild(newFavicon);
     }
-});  
+}
+
 
 (function() {
     const panicKey = localStorage.getItem('panicKey');
