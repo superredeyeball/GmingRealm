@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RobIox Hacks | GmingRealm</title>
+    <link rel="shortcut icon" href="../../images/ico.ico" type="image/x-icon">
+	<link rel="stylesheet" type="text/css" href="styles.css">
+    <meta content="#777777" data-react-helmet="true" name="theme-color"/>
+</head>
+<body>
+    <div class="topbar">
+            <a onclick="toggleNav();" class="hamburger">
+            ☰ More
+            <span class="popuptext" id="hamburgerpopup">Keysystem bypassers, vi&#173;rus exploits, emulators, and more!</span>
+        </a>
+        <a class="cheeseburger">GmingRealm | Rob&#173;lox exploits</a>
+        <script>
+            if (document.cookie == "hidepopup=true") { document.getElementById("hamburgerpopup").style.display = "none"; }
+        </script>
+    </div>
+    <div id="contents">
+        <div class="container" id="adblockers" style="display: none;"></div>
+        <div class="container" id="viruses" style="display: none;"></div>
+        <div class="container" id="bypassers" style="display: none;"></div>
+        <div id="exploits">
+            <div class="filterbuttoncontainer">
+                <button onclick="toggleFilterMenu();"></button>
+                <div class="filter-icon-container" id="filter" style="transform: translate(0px, -150px)">
+                    <div onclick="toggleFilter('ex_win', this)" class="filterico icon windows"></div>
+                    <div onclick="toggleFilter('ex_and', this)" class="filterico icon android"></div>
+                    <div onclick="toggleFilter('ex_mac', this)" class="filterico icon macos"></div>
+                    <div onclick="toggleFilter('ex_ios', this)" class="filterico icon ios"></div>
+                    <div onclick="toggleFilter('ex_keyless', this)" class="filterico icon hastext"><p>Keyless</p></div>
+                    <div onclick="toggleFilter('ex_free', this)" class="filterico icon hastext"><p>Free</p></div>
+                    <div onclick="toggleFilter('ex_decomp', this)" class="filterico icon hastext"><p>Decompiler</p></div>
+                </div>
+            </div>
+            <div class="container" id="exploitcontainer">
+               <h2>All references beside gmingrealm and exploits below are all coincidental.</h2>
+            </div>
+        </div>
+        <div id="editor" class="container" style="display: none;">
+            <h1>Data Editor and Card Creator </h1>
+            <div class="editorButtonContainer">
+                <button class="editorButton" onclick="autoImportEditableCards();">Import automatically</button>
+                <button class="editorButton" onclick="importEditorCardsFromJson();">Import from json data</button> 
+                <button class="editorButton" onclick="addNewEditableCard();">Add card</button>
+                <button class="editorButton" onclick="exportEditorCardsToJson();">Export</button>
+            </div>
+            <div class="importExportContainer" id="exportContainer" style="display: none;">
+                <h3>Q: How do I export this to the gmingrealm roblox exploiting page?</h3>
+                <p>A: Send me the exported file via email or the feedback form.</p>
+                <textarea readonly id="exportTextArea">if you are seeing this, something probably went wrong.</textarea>
+                <div class="editorButtonContainer">
+                    <button class="editorButton" onclick="navigator.clipboard.writeText(el('exportTextArea').value);">Copy to clipboard</button>
+                    <button class="editorButton" onclick="el('exportContainer').style.display = 'none';">Close</button>
+                </div>
+            </div>
+            <div class="importExportContainer" id="importContainer" style="display: none;">
+                <textarea placeholder="Paste json here..." id="importTextArea"></textarea>
+                <div class="editorButtonContainer">
+                    <button class="editorButton" onclick="createAllEditableCardsFromJson(el('importTextArea').value)">Import</button>
+                    <button class="editorButton" onclick="el('importContainer').style.display = 'none';">Close</button>
+                </div>
+            </div>
+            <div id="editorCardContainer" class="container"></div>
+        </div>
+        <div id="issues" class="container" style="display: none;">
+            <button onclick="window.open('https://www.example.com');">Open issue or request</button>
+        </div>
+        <div id="credits" style="display: none;">
+            <div class="container">
+                <h1>Credits</h1>
+                <p>Page owner: SuperBlueEyeball</p>
+                <hr><p>inspiration: justacoder</p>
+            </div>
+        </div>
+    </div>
+    <div id="sidebar">
+        <img src="assets/background.png" style="opacity: 0.2;"></img>
+        <a onclick="changeTab('exploits', this);" id="nav_exploits_button" class="active">Exploits</a>
+        <a onclick="changeTab('viruses', this);" id="nav_viruses_button">Viruses/RATs/Fake Exploits</a>
+        <a onclick="changeTab('bypassers', this);" id="nav_bypassers_button">Keysystem bypassers</a>
+        <a onclick="changeTab('adblockers', this);" id="nav_adblockers_button">Adblockers</a>
+        <a onclick="changeTab('issues', this);" id="nav_issues_button">Issues and Suggestions</a>
+        <a onclick="changeTab('credits', this);" id="nav_credits_button">Credits</a>
+        <a onclick="changeTab('editor', this);" id="nav_editor_button">Data Editor/Card Creator</a>
+    </div>
+    <div id="overlay"></div>
+    <div id="background"></div>
+    <div class="bottomBarBorder"></div>
+    <div class="bottomBar">
+        <p>All references beside gmingrealm and everything above are all coincidental. <b>Inspired</b> by RSploits.net</p>
+    </div>
+    <script src="index.js"></script>
+    <script src="/storage/js/cloak.js"></script>
+    <script src="/storage/js/theme.js"></script>
+    <script src="/storage/js/cookie.js"></script>
+    <script>toggleNav();</script>
+</body>
+</html>
