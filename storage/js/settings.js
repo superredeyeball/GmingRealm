@@ -172,6 +172,20 @@ function getCookie(name) {
     return matches ? decodeURIComponent(matches[1]) : undefined;
 }
 
+function saveLinkBehavior() {
+    const openBlankTrue = document.getElementById('openBlankTrue');
+    const openInNewTab = openBlankTrue.checked;
+    localStorage.setItem('openLinksInNewTab', openInNewTab);
+    alert('Link behavior setting saved!');
+}
+
+// Load the saved link behavior setting when the page loads
+document.addEventListener('DOMContentLoaded', function () {
+    const openInNewTab = localStorage.getItem('openLinksInNewTab') === 'true';
+    document.getElementById('openBlankTrue').checked = openInNewTab;
+    document.getElementById('openBlankFalse').checked = !openInNewTab;
+});
+
 document.addEventListener("DOMContentLoaded", function() {
     const presetSelect = document.getElementById("presetSelect");
     const saveButton = document.getElementById("saveButton");

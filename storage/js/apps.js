@@ -92,3 +92,20 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 });
+
+function applyLinkBehavior() {
+    const openInNewTab = localStorage.getItem('openLinksInNewTab') === 'true';
+    const links = document.querySelectorAll('a');
+
+    links.forEach(link => {
+        if (openInNewTab) {
+            link.setAttribute('target', '_blank');
+            link.setAttribute('rel', 'noopener noreferrer');
+        } else {
+            link.removeAttribute('target');
+            link.removeAttribute('rel');
+        }
+    });
+}
+
+document.addEventListener('DOMContentLoaded', applyLinkBehavior);

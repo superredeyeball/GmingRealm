@@ -143,23 +143,23 @@
             <input type="url" id="panicUrl" placeholder="https://www.desmos.com/scientific">
             <button onclick="saveSettings()">set panic key</button>
             <p id="success-panic" style="display: none;">success message here</p>
-            
+
+            <br>
+            <h2>link behaviour</h2>
+            <p>To go back, press the button designed for going back on your keyboard<br><a href="howdoigoback.html" style="opacity: 0.7;">Click me for more info on how to go back</a></p><br>
+            <label>
+                <input type="radio" name="openBlankSetting" value="true" id="openBlankTrue"> open links in new tab
+            </label>
+            <label>
+                <input type="radio" name="openBlankSetting" value="false" id="openBlankFalse"> open links in same tab
+            </label>
+            <button onclick="saveLinkBehavior()">Save Link Behavior</button>
 
             <br>
             <h2 style="margin-bottom: 20px;">data management</h2>
             <button onclick="importData()">import data</button>
             <button onclick="exportData()">export data</button>
             <button onclick="clearData()">clear data</button>
-
-            <br>
-            <h2 style="margin-bottom: 5px;">other</h2>
-            <p style="text-decoration: underline;">link behaviour (Not working currently)</p>
-            <label>
-                <input type="radio" name="openBlankSetting" value="true"> open links in new tab
-            </label>
-            <label>
-                <input type="radio" name="openBlankSetting" value="false"> open links in same tab
-            </label>
 
             <br>
             <br>

@@ -36,6 +36,124 @@ function getCookie(name) {
 }
 
 document.addEventListener("DOMContentLoaded", function () {
+    // Attempt to set the favicon and title with multiple strategies.
+    trySettingTabAttributes();
+});
+
+function trySettingTabAttributes() {
+    const presetKey = getCookie("tabCloakPreset");
+
+    // Define the presets here
+    const presets = {
+        google: {
+            favicon: "/images/icons/google.ico",
+            title: "Google"
+        },
+        nothing: {
+            favicon: "/images/icons/nothing.ico",
+            title: "​"
+        },
+        bing: {
+            favicon: "/images/icons/bing.ico",
+            title: "Bing"
+        },
+        gmail: {
+            favicon: "/images/icons/gmail.ico",
+            title: "Gmail"
+        },
+        desmos: {
+            favicon: "/images/icons/desmos.ico",
+            title: "Desmos | Graphing Calculator"
+        },
+        googleclassroom: {
+            favicon: "/images/icons/googleclassroom.ico",
+            title: "Home"
+        },
+        wikipedia: {
+            favicon: "/images/icons/wikipedia.ico",
+            title: "Wikipedia"
+        },
+        chrometab: {
+            favicon: "/images/icons/chromenewtab.ico",
+            title: "New Tab"
+        },
+        googledrive: {
+            favicon: "/images/icons/googledrive.ico",
+            title: "My Drive"
+        }
+    };
+
+
+    // Check if the preset is valid
+    if (presetKey && presets[presetKey]) {
+        const preset = presets[presetKey];
+
+        // Set title
+        trySetTitle(preset.title);
+
+        // Set favicon
+        trySetFavicon(preset.favicon);
+    }
+}
+
+function trySetTitle(title) {
+    if (document.title !== title) {
+        document.title = title;
+    }
+    // Fallback strategies if needed
+}
+
+function trySetFavicon(faviconURL) {
+    // Cache-buster to prevent caching issues
+    const faviconWithCacheBuster = faviconURL + '?v=' + new Date().getTime();
+
+    let attempts = 0;
+    const maxAttempts = 5;  // Reduced max attempts
+
+    const checkFaviconLoaded = (favicon) => {
+        return new Promise((resolve) => {
+            const img = new Image();
+            img.onload = () => resolve(true);
+            img.onerror = () => resolve(false);
+            img.src = favicon.href;
+        });
+    };
+
+    const setFavicon = () => {
+        const newFavicon = document.createElement("link");
+        newFavicon.rel = "shortcut icon";
+        newFavicon.type = "image/x-icon";
+        newFavicon.href = faviconWithCacheBuster;
+
+        const existingFavicon = document.querySelector("link[rel*='icon']");
+        if (existingFavicon) {
+            document.head.removeChild(existingFavicon);
+        }
+        document.head.appendChild(newFavicon);
+
+        // Check if the favicon is properly loaded
+        checkFaviconLoaded(newFavicon).then((isLoaded) => {
+            if (isLoaded) {
+                console.log("Favicon successfully loaded.");
+            } else {
+                console.error("Favicon failed to load, retrying...");
+                if (attempts < maxAttempts) {
+                    attempts++;
+                    setTimeout(setFavicon, 1000);  // Retry after 1 second
+                } else {
+                    console.error("Max attempts reached. Favicon could not be set.");
+                }
+            }
+        });
+    };
+
+    // Initial favicon setting
+    setFavicon();
+}
+
+/*
+
+document.addEventListener("DOMContentLoaded", function () {
     setTimeout(() => {
         updateFavicon();
     }, 100); // Adjust this delay if needed
@@ -102,6 +220,7 @@ function updateFavicon() {
     }
 }
 
+*/
 
 (function() {
     const panicKey = localStorage.getItem('panicKey');
