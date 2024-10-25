@@ -2817,14 +2817,14 @@ const ThemeHOC = function ThemeHOC(WrappedComponent) {
 
       if (dark && !darkModeStylesheet.parentNode) {
         // Append at the start of <body> we override scratch-gui styles in <head>
-        <script async src="https://www.googletagmanager.com/gtag/js?id=G-7FN7LEVWXD"></script>
-        <script>
-          window.dataLayer = window.dataLayer || [];
-          function gtag(){dataLayer.push(arguments);}
-          gtag('js', new Date());
+        <script async src="https://www.googletagmanager.com/gtag/js?id=G-B9R93ESZH8"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() { dataLayer.push(arguments); }
+    gtag('js', new Date());
 
-          gtag('config', 'G-7FN7LEVWXD');
-        </script>
+    gtag('config', 'G-B9R93ESZH8');
+  </script>
 
         // but are overridden by addon styles at the end of <body>
         document.body.insertBefore(darkModeStylesheet, document.body.firstChild);

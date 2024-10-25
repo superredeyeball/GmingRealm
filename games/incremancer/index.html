@@ -1,26 +1,17 @@
 <!DOCTYPE html>
 <html ng-app="zombieApp">
   <head>
-    <!-- Global site tag (gtag.js) - Google Analytics -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-56478232-3"></script>
-    <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
-      gtag('config', 'UA-56478232-3');
-
-      var errors = 1;
-
-      // Track basic JavaScript errors
-      window.addEventListener('error', function(e) {
-          gtag('event', 'error', {
-            'event_category': 'JS exception',
-            'event_label': e.message + ": " + e.filename + ":  " + e.lineno,
-            'value': errors++
-          });
-      });
-    </script>
-    <title>Incremancer</title>
+    <!-- Gtag-->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-7FN7LEVWXD"></script><script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-7FN7LEVWXD');</script>
+  <!-- Gtag--> 
+   
+  <title>Incremancer | GmingRealm</title>
+  <link rel="shortcut icon" href="../../images/ico.ico" type="image/x-icon">
+  <script src="../../storage/js/cloak.js"></script>
     <meta name="description" content="Zombie necromancer idle game">
     <meta name="keywords" content="zombie,game,idle,javascript">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -35,7 +26,6 @@
     <script src="js/angular.min.js"></script>
     <script src="dist/bundle.js"></script>
     <link rel="stylesheet" type="text/css" href="zombiemancer.css">
-    <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon"/>
   </head>
   <body ng-controller="ZombieController as zm">
     <div class="message" ng-if="zm.message">

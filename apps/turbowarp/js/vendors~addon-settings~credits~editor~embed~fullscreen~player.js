@@ -18936,14 +18936,14 @@ module.exports = function(list, options) {
 	if (!options.singleton && typeof options.singleton !== "boolean") options.singleton = isOldIE();
 
 	// By default, add <style> tags to the <head>
-        <script async src="https://www.googletagmanager.com/gtag/js?id=G-7FN7LEVWXD"></script>
-        <script>
-          window.dataLayer = window.dataLayer || [];
-          function gtag(){dataLayer.push(arguments);}
-          gtag('js', new Date());
+        <script async src="https://www.googletagmanager.com/gtag/js?id=G-B9R93ESZH8"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() { dataLayer.push(arguments); }
+    gtag('js', new Date());
 
-          gtag('config', 'G-7FN7LEVWXD');
-        </script>
+    gtag('config', 'G-B9R93ESZH8');
+  </script>
  element
         if (!options.insertInto) options.insertInto = "head";
 
