@@ -179,6 +179,13 @@ function saveLinkBehavior() {
     alert('Link behavior setting saved!');
 }
 
+function saveDiscordWidgetBehavior() {
+    const discordWidgetTrue = document.getElementById('discordWidgetTrue');
+    const ShowWidget = discordWidgetTrue.checked;
+    localStorage.setItem('ShowDiscordWidget', ShowWidget);
+    alert('Setting saved!');
+}
+
 // Load the saved link behavior setting when the page loads
 document.addEventListener('DOMContentLoaded', function () {
     const openInNewTab = localStorage.getItem('openLinksInNewTab') === 'true';

@@ -139,6 +139,7 @@
 
             <br>
             <h2 style="margin-bottom: 20px;">panic mode</h2>
+            <p>To go back, press the button designed for going back on your keyboard<br><a href="howdoigoback.html" style="opacity: 0.7;">Click me for more info on how to go back</a></p><br>
             <input type="text" id="panicKey" placeholder="choose a key combination" readonly>
             <input type="url" id="panicUrl" placeholder="https://www.desmos.com/scientific">
             <button onclick="saveSettings()">set panic key</button>
@@ -146,7 +147,6 @@
 
             <br>
             <h2>link behaviour</h2>
-            <p>To go back, press the button designed for going back on your keyboard<br><a href="howdoigoback.html" style="opacity: 0.7;">Click me for more info on how to go back</a></p><br>
             <label>
                 <input type="radio" name="openBlankSetting" value="true" id="openBlankTrue"> open links in new tab
             </label>
@@ -154,6 +154,16 @@
                 <input type="radio" name="openBlankSetting" value="false" id="openBlankFalse"> open links in same tab
             </label>
             <button onclick="saveLinkBehavior()">Save Link Behavior</button>
+
+            <br>
+            <h2>discord chat widget behavior<br>(Broken temporarily till next update)</h2>
+            <label>
+                <input type="radio" name="discordWidgetSetting" value="true" id="discordWidgetTrue"> Enable
+            </label>
+            <label>
+                <input type="radio" name="discordWidgetSetting" value="false" id="discordWidgetFalse"> Disable
+            </label>
+            <button onclick="saveDiscordWidgetBehavior()">Save Widget Behavior</button>
 
             <br>
             <h2 style="margin-bottom: 20px;">data management</h2>
@@ -169,7 +179,6 @@
         <script src="/storage/js/settings.js"></script>
         <div class="dizzy-embed-container"
             style="position: fixed; bottom: 20px; right: 20px; z-index: 1000; background-color: transparent; padding: 10px;">
-            <!--
             <script src="https://cdn.jsdelivr.net/npm/@widgetbot/crate@3" async defer>
                 new Crate({
                     server: '1296286781821554709', // GmingRealm Chat
@@ -177,6 +186,5 @@
                 });
             </script>
         </div>
-        -->
   </body>
 </html>

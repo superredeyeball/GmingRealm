@@ -254,6 +254,27 @@ function updateFavicon() {
     document.addEventListener('keyup', keyUpHandler);
 })();
 
+/*
 
+function applyDiscordWidgetSetting() {
+    const isEnabled = getCookie('ShowDiscordWidget') === 'true';
+    const widgetCrate = document.querySelector('widgetbot-crate');
 
+    if (widgetCrate) {
+        if (isEnabled) {
+            widgetCrate.style.display = 'block';
+            widgetCrate.style.position = 'fixed';
+            widgetCrate.style.bottom = '20px';
+            widgetCrate.style.right = '20px';
+            widgetCrate.style.zIndex = '1000';
+        } else {
+            widgetCrate.style.display = 'none';
+        }
+    }
+}
 
+document.addEventListener("DOMContentLoaded", function () {
+    // Load settings for discord widget when page loads
+    applyDiscordWidgetSetting();
+});
+*/
