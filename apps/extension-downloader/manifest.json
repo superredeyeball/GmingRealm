@@ -1,0 +1,20 @@
+{
+  "manifest_version": 2,
+  "name": "Extension Downloader",
+  "version": "1.0",
+  "description": "Download Chrome extensions as CRX or ZIP files",
+  "permissions": [
+    "activeTab",
+    "downloads",
+    "storage",
+    "https://clients2.google.com/"
+  ],
+  "browser_action": {
+    "default_popup": "data/popup/popup.html"
+  },
+  "background": {
+    "scripts": ["background.js"],
+    "persistent": false
+  },
+  "content_security_policy": "script-src 'self' 'unsafe-eval'; object-src 'self'"
+}
