@@ -64,7 +64,7 @@ function clearData() {
         <div style="position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%);
                     background-color: var(--background-color); border: 3px solid var(--border-color2); border-radius: 16px; color: var(--text-color); z-index: 1000; text-align: center; width: 60%; max-width: 550px; animation: none; margin-bottom: 40px;">
             <h2 style="margin-top: 20.08px;">confirmation</h2>
-            <p>are you sure you would like to clear all your data? continuing will wipe saved settings, pinned games and downloaded content.</p> 
+            <p>are you sure you would like to clear all your data? continuing will wipe saved settings, pinned ga&#173;mes and downloaded content.</p> 
             <p>this cannot be undone unless you have exported your data previously.</p>
             <button id="confirm-clear">yes</button>
             <button id="cancel-clear">no</button>
