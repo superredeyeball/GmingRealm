@@ -115,5 +115,11 @@
     <script>
       window.onload = GameMaker_Init;
     </script>
+    <script>
+      document.addEventListener('click', function (event) {
+        event.preventDefault();
+        event.stopPropagation();
+      }, true);
+    </script>
   </body>
 </html>
