@@ -1,0 +1,143 @@
+Investigate:
+    Brian's BSFKL notation
+    "extended" Generations
+    Deficient rules
+    half-integer Wolfram rules
+    user preferences
+    memory statistics in allocator with 0 size allocations
+
+Planned:
+    add HistoryStates on state 2 for [R]Super
+    menu items coordinates should be reflected based on compass position
+    ability to specify Dying state colours
+    add UI colours to Themes
+    investigate PCA cells and layers
+    consistent generation counters in T menu
+
+[DONE]@NAMES support
+    [DONE][[ COLOUR @NAME ]]
+    [DONE][[ XY = @NAME display ]]
+
+[DONE]Rainbow rendering
+    [DONE]add toggle for 2-state Life-like rules for rainbow rendering
+    [DONE]add for Hexagons and triangles
+    [DONE]add script command
+    [DONE]add hotkey for toggle
+    [DONE]add toggle button to settings
+
+[DONE][R]Super support
+    [DONE]rule parser
+    [DONE]runtime
+    [DONE]toggle [R]Super display (so Copy can output 2-state version of pattern)
+    [DONE]updated editor controls that clear [R]History states to support [R]Super
+
+[STARTED]additional LtL/HROT neighbourhoods
+    [DONE]L2
+    [DONE]star
+    [DONE]cross
+    [DONE]saltire
+    [DONE]checkerboard
+    [DONE]hash
+    [DONE]hex
+    [DONE]tripod
+    [DONE]asterisk
+    [DONE]triangular
+    [DONE]custom (CoordCA)
+    [DONE]weighted with optional state weights
+    - B0 emulation
+    - alternating rules for custom and weighted
+
+[STARTED]add type information for closure compiler
+
+[STARTED]Triangular neighbourhood
+    - square bounded grids
+    - need to optimize triangular grid lines using lines across width and height of window
+    - optimize triangular algo for two cell lookup
+    [DONE]drawing should use triangles and not squares for cell
+    [DONE]Triangular grid Copy RLE needs to cope with odd/even cells
+    [DONE]build triangular lookup array
+    [DONE]build next generation function
+    [DONE]triangle renderer
+    [DONE]decode triangular neighbourhood rules
+    [DONE]support Triangular, Triangular Edges, Triangular Vertices, Triangular Inner and Triangular Outer neighbourhoods
+    [DONE]B0 rules
+
+[STARTED]Rule Table rules
+    [DONE]decode @TABLE
+    [DONE]decode @ICONS
+    [DONE]render Icons
+    [DONE]decode @TREE
+    [DONE]decode @COLORS
+    [DONE]load rules from repository
+    - rules with hyphen in the name and missing @COLORS or @ICONS load from repository
+    [DONE]cache last rule so it's there on New Pattern or updateViewer()
+    [DONE]async load
+    [DONE]ruletable algo
+    [DONE]ruletree algo
+
+[STARTED]PCA rules
+    - use tile system
+
+[STARTED]Pattern Editor
+    - ability to define rule
+    - improved LifeHistory drawing modes
+    [DONE]reset to include the overlay grid
+    [DONE]selections
+        [DONE]accurate hex selection
+        [DONE]accurate triangular selection
+        [DONE]10 clipboards
+        [DONE]square selection
+        [DONE]auto-shrink selection on/off
+        [DONE]flip X selection
+        [DONE]flip Y selection
+        [DONE]rotate CW selection
+        [DONE]rotate CCW selection
+        [DONE]set random fill percentage
+        [DONE]random fill selection
+        [DONE]random 2-state fill selection
+        [DONE]clear cells in selection
+        [DONE]invert cells in selection
+        [DONE]copy selection to buffer
+        [DONE]cut selection to buffer
+        [DONE]flip X buffer
+        [DONE]flip Y buffer
+        [DONE]rotate CW buffer
+        [DONE]rotate CCW buffer
+        [DONE]random fill buffer
+        [DONE]random 2-state fill buffer
+        [DONE]clear cells in selection
+        [DONE]invert cells in selection
+        [DONE]copy buffer to current position
+        [DONE]copy buffer to selection
+        [DONE]advance outside selection
+        [DONE] advance selection
+    [DONE]undo stack / step back
+    [DONE]grow grid if possible when cell outside current grid drawn
+    [DONE]2-state editing
+    [DONE]LifeHistory support
+    [DONE]multi-state support
+    [DONE]colour picker
+    [DONE]convert current pattern to RLE (for Ctrl-C Copy)
+
+Complete:
+[DONE]remove redundant colour map functionality from ColourManager
+[DONE]Delete boundary gliders
+[DONE]Optional border around square, hexagonal or triangular cells
+[DONE]setState should check for tile boundaries and set adjacent tiles
+[DONE]Paul's non-totalistic hex notation
+[DONE]#CXRLE Pos limits
+[DONE]Multiverse
+[DONE]Alternating rules
+[DONE]LtL, HROT and Generations fix patterns hitting boundary (use DELETERANGE rather than just clear)
+[DONE]Memory footprint reduction
+[DONE]Implement faster Ltl/HROT von Neumann algorithm
+[DONE]HROT support for von Neumann and Circular neighbourhoods
+[DONE]New script keywords to put annotations (labels, arrows or polygons) on the display at specific locations triggered by generation and/or zoom ranges
+[DONE]multistate rules using just 2 states should use LifeViewer Themes
+[DONE]getState() needs to cope with Bounded Grid and 255 or 256 states (currently bounded grid border showing as 1, should be 0)
+[DONE]multistate rules using > 2 states and < 256 states should have history colour
+[DONE]LABELTRACK DX DY command to allow labels to move over generations
+[DONE]grey out individual items in a UI list control
+[DONE]pause playback during drawing
+[DONE]bottom right menu items should be relative to middle column so they cluster on wide windows
+[DONE]strict volatility (Identify)

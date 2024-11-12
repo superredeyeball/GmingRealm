@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<meta name="LifeViewer" content="viewer textarea 60 hide">
+		<script src="../js/compatibility.js"></script>
+		<script src="../js/allocator.js"></script>
+		<script src="../js/alias.js"></script>
+		<script src="../js/canvasmenu.js"></script>
+		<script src="../js/patterns.js"></script>
+		<script src="../js/colours.js"></script>
+		<script src="../js/box.js"></script>
+		<script src="../js/snapshot.js"></script>
+		<script src="../js/life.js"></script>
+		<script src="../js/hrot.js"></script>
+		<script src="../js/random.js"></script>
+		<script src="../js/stars.js"></script>
+		<script src="../js/waypoint.js"></script>
+		<script src="../js/script.js"></script>
+		<script src="../js/window.js"></script>
+		<script src="../js/keywords.js"></script>
+		<script src="../js/help.js"></script>
+		<script src="../js/parser.js"></script>
+		<script src="../js/keys.js"></script>
+		<script src="../js/lifeview.js"></script>
+		<title>LifeViewer Plugin Tests</title>
+	</head>
+	<body>
+		<h1>LifeViewer Plugin Tests</h1>
+		<h2>HROT von Neumann</h2>
+		<div class="viewer">
+			<a href="" onclick="updateViewer(this); return false;">View Standalone</a><br>
+			<textarea rows=10 cols=70>
+x = 65, y = 55, rule = R2,C6,S2-3,B3,NN
+56.A.A2$56.A.A16$60.AD$30.A.A25.AB2A$58.2ACECA$30.A.A26.A4CA$37.A.A
+20.4A$11.4A$11.ACEB22.A.A$11.2A2E$A.A8.2AE$12.D2E$A.A12$41.ABE.E$41.A
+4E$41.AC2AD$41.4A9$44.A.A2$44.A.A!
+			</textarea>
+			<br>
+			<canvas width="480" height="480"></canvas>
+		</div>
+		<h2>LTL von Neumann equivalent</h2>
+		<div class="viewer">
+			<a href="" onclick="updateViewer(this); return false;">View Standalone</a><br>
+			<textarea rows=10 cols=70>
+x = 65, y = 55, rule = R2,C6,M0,S2..3,B3..3,NN
+56.A.A2$56.A.A16$60.AD$30.A.A25.AB2A$58.2ACECA$30.A.A26.A4CA$37.A.A
+20.4A$11.4A$11.ACEB22.A.A$11.2A2E$A.A8.2AE$12.D2E$A.A12$41.ABE.E$41.A
+4E$41.AC2AD$41.4A9$44.A.A2$44.A.A!
+			</textarea>
+			<br>
+			<canvas width="480" height="480"></canvas>
+		</div>
+		<h2>HROT Circular</h2>
+		<div class="viewer">
+			<a href="" onclick="updateViewer(this); return false;">View Standalone</a><br>
+			<textarea rows=10 cols=70>
+x = 83, y = 45, rule = R2,C0,S3-6,B5,NC
+3o$2o$bo8$2o8b3o7b2o9bo8bo9bo9bobo8bo8bobo$2o8bo9bo9b2o8bobo7b2o9bo8bo
+bo7bobo$21bo10bo7bo10bo9bo9bo8$2o8b3o7b2o8b3o7b3o$obo7bo9bo9bo9bo2bo$b
+2o7bobo7bobo7bobo7bobo$21bo9bo9bo7$b2o8b3o7b3o$o2bo6bo2bo6bo2bo$o2bo6b
+o2bo6bo2bo$b2o8b2o7b3o7$b3o7b3o$o3bo5bo3bo$o3bo5bo3bo$b3o6bo3bo$11b3o!
+			</textarea>
+			<br>
+			<canvas width="480" height="480"></canvas>
+		</div>
+		<h2>LTL Circular equivalent</h2>
+		<div class="viewer">
+			<a href="" onclick="updateViewer(this); return false;">View Standalone</a><br>
+			<textarea rows=10 cols=70>
+x = 83, y = 45, rule = R2,C0,M0,S3..6,B5..5,NC
+3o$2o$bo8$2o8b3o7b2o9bo8bo9bo9bobo8bo8bobo$2o8bo9bo9b2o8bobo7b2o9bo8bo
+bo7bobo$21bo10bo7bo10bo9bo9bo8$2o8b3o7b2o8b3o7b3o$obo7bo9bo9bo9bo2bo$b
+2o7bobo7bobo7bobo7bobo$21bo9bo9bo7$b2o8b3o7b3o$o2bo6bo2bo6bo2bo$o2bo6b
+o2bo6bo2bo$b2o8b2o7b3o7$b3o7b3o$o3bo5bo3bo$o3bo5bo3bo$b3o6bo3bo$11b3o!
+			</textarea>
+			<br>
+			<canvas width="480" height="480"></canvas>
+		</div>
+		<h2>HROT 2 state hex encoding</h2>
+		<div class="viewer">
+			<a href="" onclick="updateViewer(this); return false;">View Standalone</a><br>
+			<textarea rows=10 cols=70>
+# Type or paste RLE data into this box and click on the View button.
+x = 5, y = 5, rule = r2b000008s03ff00
+ooooo$obbbo$obbbo$obbbo$ooooo!
+			</textarea>
+			<br>
+			<canvas width="480" height="480"></canvas>
+		</div>
+		<h2>HROT 2 state canonical</h2>
+		<div class="viewer">
+			<a href="" onclick="updateViewer(this); return false;">View Standalone</a><br>
+			<textarea rows=10 cols=70>
+# Type or paste RLE data into this box and click on the View button.
+x = 5, y = 5, rule = R2,C2,S9-18,B4
+ooooo$obbbo$obbbo$obbbo$ooooo!
+			</textarea>
+			<br>
+			<canvas width="480" height="480"></canvas>
+		</div>
+		<h2>LTL canonical equivalent</h2>
+		<div class="viewer">
+			<a href="" onclick="updateViewer(this); return false;">View Standalone</a><br>
+			<textarea rows=10 cols=70>
+# Type or paste RLE data into this box and click on the View button.
+x = 5, y = 5, rule = R2,C0,M1,S10..19,B4..4,NM
+ooooo$obbbo$obbbo$obbbo$ooooo!
+			</textarea>
+			<br>
+			<canvas width="480" height="480"></canvas>
+		</div>
+		<h2>LTL equivalent</h2>
+		<div class="viewer">
+			<a href="" onclick="updateViewer(this); return false;">View Standalone</a><br>
+			<textarea rows=10 cols=70>
+# Type or paste RLE data into this box and click on the View button.
+x = 5, y = 5, rule = r2b4t4s10t19
+ooooo$obbbo$obbbo$obbbo$ooooo!
+			</textarea>
+			<br>
+			<canvas width="480" height="480"></canvas>
+		</div>
+		<h2>HROT 100 state hex encoding</h2>
+		<div class="viewer">
+			<a href="" onclick="updateViewer(this); return false;">View Standalone</a><br>
+			<textarea rows=10 cols=70>
+# Type or paste RLE data into this box and click on the View button.
+x = 8, y = 8, rule = g100r2b00000cs03ff00:T360
+oooooooo$obbbbbbo$obbbbbbo$obboobbo$obboobbo$obbbbbbo$obbbbbbo$oooooooo!
+[[ ZOOM 1 ]]
+			</textarea>
+			<br>
+			<canvas width="480" height="480"></canvas>
+		</div>
+		<h2>HROT 100 state canonical</h2>
+		<div class="viewer">
+			<a href="" onclick="updateViewer(this); return false;">View Standalone</a><br>
+			<textarea rows=10 cols=70>
+# Type or paste RLE data into this box and click on the View button.
+x = 8, y = 8, rule = R2,C100,S9-18,B3-4:T360
+oooooooo$obbbbbbo$obbbbbbo$obboobbo$obboobbo$obbbbbbo$obbbbbbo$oooooooo!
+[[ ZOOM 1 ]]
+			</textarea>
+			<br>
+			<canvas width="480" height="480"></canvas>
+		<h2>LTL canonical equivalent</h2>
+		<div class="viewer">
+			<a href="" onclick="updateViewer(this); return false;">View Standalone</a><br>
+			<textarea rows=10 cols=70>
+# Type or paste RLE data into this box and click on the View button.
+x = 5, y = 5, rule = R2,C100,M1,S10..19,B3..4,NM:T360
+oooooooo$obbbbbbo$obbbbbbo$obboobbo$obboobbo$obbbbbbo$obbbbbbo$oooooooo!
+[[ ZOOM 1 ]]
+			</textarea>
+			<br>
+			<canvas width="480" height="480"></canvas>
+		<h2>LTL equivalent</h2>
+		<div class="viewer">
+			<a href="" onclick="updateViewer(this); return false;">View Standalone</a><br>
+			<textarea rows=10 cols=70>
+# Type or paste RLE data into this box and click on the View button.
+x = 5, y = 5, rule = g100r2b3t4s10t19:T360
+oooooooo$obbbbbbo$obbbbbbo$obboobbo$obboobbo$obbbbbbo$obbbbbbo$oooooooo!
+[[ ZOOM 1 ]]
+			</textarea>
+			<br>
+			<canvas width="480" height="480"></canvas>
+		</div>
+		<br>
+		<p>LifeViewer Plugin by Chris Rowett</p>
+	</body>
+</html>
