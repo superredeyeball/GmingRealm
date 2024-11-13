@@ -22,7 +22,7 @@ concurrency:
   cancel-in-progress: false
 
 jobs:
-  # Single deploy job since we're just deploying
+  # Job to deploy to GitHub Pages
   deploy:
     environment:
       name: github-pages
@@ -36,8 +36,21 @@ jobs:
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          # Upload entire repository
           path: '.'
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
+
+  # Job to remove unused Docker images
+  remove_docker_images:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Remove unused Docker images
+        run: docker system prune -af
+
+  # Job to clean up temporary files
+  cleanup_temp_files:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Clean up temporary files
+        run: sudo rm -rf /tmp/*
