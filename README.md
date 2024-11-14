@@ -4,7 +4,7 @@
 ### Welcome to Gmingrealm, the best gaming site on the market!
 
 
-This project has a license, so don't try copying it. You can fork it and give credit without claiming it's yours. Self-hosting and hosting providers are OK ***WITH CREDIT AND LICENSE*** of me (SuperBlueEyeball) and the template creator (SipSup3314). 
+This project is open sourced and has a license specifically make to allow you to make your own copy of this. You can fork this (and hopefully give credit) but I would like credit because I worked really hard also credits to a456pur for making Seraph which this is inspired on.
 
 ## My backstory 
 
