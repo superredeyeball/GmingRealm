@@ -81,16 +81,24 @@ jobs:
         run: df -h
       - name: Checkout
         uses: actions/checkout@v4
+      - name: Check disk usage during deployment process
+        run: df -h
       - name: Setup Pages
         uses: actions/configure-pages@v5
+      - name: Check disk usage during deployment process
+        run: df -h
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
           # Upload entire repository
           path: '.'
+      - name: Check disk usage during deployment process
+        run: df -h
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
+      - name: Check disk usage after deployment process
+        run: df -h
       #- name: Cache
        # uses: actions/cache@v4.1.2
        # with:
