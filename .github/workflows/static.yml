@@ -29,6 +29,14 @@ jobs:
     name: Update the sitemap
 
     steps:
+    - name: Check disk usage before cleaning up disk space
+      run: df -h
+    - name: Remove unused Docker images
+      run: docker system prune -af
+    - name: Clean up temporary files
+      run: sudo rm -rf /tmp/*
+    - name: Check disk usage after cleaning up disk space
+      run: df -h
     - name: Checkout the repo
       uses: actions/checkout@v4
       with:
@@ -42,12 +50,14 @@ jobs:
         
       # UPDATE THE BASE URL PATH IF MODIFYING THE WEBSITE URL!!!
 
-
     - name: Output stats
       run: |
         echo "sitemap-path = ${{ steps.sitemap.outputs.sitemap-path }}"
         echo "url-count = ${{ steps.sitemap.outputs.url-count }}"
         echo "excluded-count = ${{ steps.sitemap.outputs.excluded-count }}"
+
+    - name: Check disk usage AFTER AFTER
+      run: df -h
   
   deploy:
     environment:
