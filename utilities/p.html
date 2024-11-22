@@ -49,10 +49,20 @@
     <div>
         <div class="center">
             <input type="text" id="urlInput" placeholder="Enter URL" class="tbox" /><br>
+            <button id="openTranslateBtn" class="button" style="height : 100px; font-size: 20px;">Open Google Translate UnbIock Method<br><span style="font-size: 13px;">(UnbIocked for everyone, bypasses IP blacklisting)<br>Doesn't unbIock dependments though such as images and urls so you will need to put it into here yourself</span></button>
+        </div><br><hr style="width: 75%;"><br>
+        <div class="center">
+            <input type="text" id="urlInput" placeholder="Enter URL" class="tbox" /><br>
             <button id="openCacheBtn" class="button" style="height : 100px; font-size: 20px;">Open Google Cache UnbIock Method<br><span style="font-size: 13px;">(Works sometimes but sometimes not, though, it also can be an
                 unbIocked search engine.)</span></button>
         </div>
         <script>
+            document.getElementById('openTranslateBtn').addEventListener('click', function () {
+                const urlInput = document.getElementById('urlInput').value;
+                const cacheUrl = 'https://translate.google.com/translate?sl=es&tl=en&u=' + encodeURIComponent(urlInput);
+                window.open(cacheUrl, '_blank');
+            });
+
             document.getElementById('openCacheBtn').addEventListener('click', function () {
                 const urlInput = document.getElementById('urlInput').value;
                 const cacheUrl = 'http://webcache.googleusercontent.com/search?q=cache:' + encodeURIComponent(urlInput);
