@@ -24,56 +24,6 @@ concurrency:
   cancel-in-progress: false
 
 jobs:
-  update-sitemap:
-    runs-on: ubuntu-latest
-    name: Update the sitemap
-
-    steps:
-    - name: Check disk usage before
-      run: df -h
-      # Don't remove docker images as it is used in process of creating sitemap
-    #- name: Remove unused Docker images
-    #  run: docker system prune -af
-    
-    #- name: Clean up temporary files
-    #  run: sudo rm -rf /tmp/*
-    #- name: Check disk usage after cleaning up disk space
-    #  run: df -h
-    - name: Checkout the repo
-      uses: actions/checkout@v4
-      with:
-        fetch-depth: 0 
-
-    - name: Generate the sitemap
-      id: sitemap
-      uses: cicirello/generate-sitemap@v1
-      with:
-        base-url-path: https://superredeyeball.github.io/
-      # UPDATE THE BASE URL PATH IF MODIFYING THE WEBSITE URL!!!
-      
-    - name: Create Pull Request
-      uses: peter-evans/create-pull-request@v7.0.5
-      with:
-        title: "Automated sitemap update"
-        body: > 
-          Automated changes. Sitemap updated by 
-          the [generate-sitemap](https://github.com/cicirello/generate-sitemap) 
-          GitHub action.  
-        commit-message: "Automated sitemap update."
-        author: SuperRedEyeball <superredeyeball@users.noreply.github.com>
-        committer: SuperRedEyeball <superredeyeball@users.noreply.github.com>
-        branch: create-pull-request/sitemap
-        delete-branch: true
-        
-    - name: Output stats
-      run: |
-        echo "sitemap-path = ${{ steps.sitemap.outputs.sitemap-path }}"
-        echo "url-count = ${{ steps.sitemap.outputs.url-count }}"
-        echo "excluded-count = ${{ steps.sitemap.outputs.excluded-count }}"
-
-    - name: Check disk usage after
-      run: df -h
-  
   deploy:
     environment:
       name: github-pages
