@@ -1,0 +1,76 @@
+name: Generate sitemap 
+
+on:
+  # Runs on pushes targeting the default branch
+  push:
+    branches: ["main"]
+
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+
+jobs:
+  sitemap_job:
+    runs-on: ubuntu-latest
+    name: Generate a sitemap
+    steps:
+    - name: Checkout the repo
+      uses: actions/checkout@v4
+      with:
+        fetch-depth: 0 
+    
+    - name: Generate the sitemap
+      id: sitemap
+      uses: cicirello/generate-sitemap@v1
+      with:
+        base-url-path: https://superredeyeball.github.io/
+    
+    - name: Output stats
+      run: |
+        echo "sitemap-path = ${{ steps.sitemap.outputs.sitemap-path }}"
+        echo "url-count = ${{ steps.sitemap.outputs.url-count }}"
+        echo "excluded-count = ${{ steps.sitemap.outputs.excluded-count }}"
+
+    #- name: Print the generated XML file
+    #  run: |
+    #    echo "Generated sitemap:"
+    #    cat "${{ steps.sitemap.outputs.sitemap-path }}"
+    # Gonna have to wait till they make this a feature for now.
+
+    - name: Check Git status
+      run: git status
+
+    - name: Show Git branches
+      run: git branch -a
+
+    - name: Delete existing branch
+      run: |
+        git fetch origin
+        if git show-ref --verify --quiet refs/remotes/origin/create-pull-request/sitemap; then
+          git push origin --delete create-pull-request/sitemap
+        fi
+
+    - name: Check for uncommitted changes
+      run: |
+        if [ -n "$(git status --porcelain)" ]; then
+          echo "There are uncommitted changes in the repository."
+          git status --porcelain
+        else
+          echo "No uncommitted changes found."
+        fi
+
+    - name: Check disk usage
+      run: df -h
+
+    - name: Create Pull Request
+      uses: peter-evans/create-pull-request@v7.0.5
+      with:
+        title: "Automated sitemap update"
+        body: > 
+          Automated changes. Sitemap updated by 
+          the [generate-sitemap](https://github.com/cicirello/generate-sitemap) 
+          GitHub action.  
+        commit-message: "Automated sitemap update."
+        author: SuperRedEyeball <superredeyeball@users.noreply.github.com>
+        committer: SuperRedEyeball <superredeyeball@users.noreply.github.com>
+        branch: create-pull-request/sitemap
+        delete-branch: true
