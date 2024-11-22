@@ -29,7 +29,38 @@ jobs:
         echo "sitemap-path = ${{ steps.sitemap.outputs.sitemap-path }}"
         echo "url-count = ${{ steps.sitemap.outputs.url-count }}"
         echo "excluded-count = ${{ steps.sitemap.outputs.excluded-count }}"
-    
+
+    #- name: Print the generated XML file
+    #  run: |
+    #    echo "Generated sitemap:"
+    #    cat "${{ steps.sitemap.outputs.sitemap-path }}"
+    # Gonna have to wait till they make this a feature for now.
+
+    - name: Check Git status
+      run: git status
+
+    - name: Show Git branches
+      run: git branch -a
+
+    - name: Delete existing branch
+      run: |
+        git fetch origin
+        if git show-ref --verify --quiet refs/remotes/origin/create-pull-request/sitemap; then
+          git push origin --delete create-pull-request/sitemap
+        fi
+
+    - name: Check for uncommitted changes
+      run: |
+        if [ -n "$(git status --porcelain)" ]; then
+          echo "There are uncommitted changes in the repository."
+          git status --porcelain
+        else
+          echo "No uncommitted changes found."
+        fi
+
+    - name: Check disk usage
+      run: df -h
+
     - name: Create Pull Request
       uses: peter-evans/create-pull-request@v7.0.5
       with:
