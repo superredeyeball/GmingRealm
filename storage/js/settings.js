@@ -7,10 +7,13 @@ document.addEventListener('DOMContentLoaded', function () {
 function applyStoredTheme() {
     const storedTheme = localStorage.getItem('selectedTheme');
 
+    deleteparticlesjs()
     hideCustomThemeSettings();
     if (storedTheme === 'custom') {
         showCustomThemeSettings();
         applyCustomThemeStyles();
+    } else if (storedTheme === 'particlesjs') {
+        applyParticleJsTheme();
     }
     applyTheme();
 }
@@ -73,6 +76,7 @@ function removeCustomThemeStyles() {
 }
 
 function applyTheme() {
+    deleteparticlesjs()
     const selectedTheme = document.getElementById('theme-select');
     if (selectedTheme) {
         const themeValue = selectedTheme.value;
@@ -82,14 +86,11 @@ function applyTheme() {
         if (themeValue === 'custom') {
             applyCustomThemeStyles();
             showCustomThemeSettings();
-        } else if (themeValue === 'particle.js') {
-            hideCustomThemeSettings();
-            removeCustomThemeStyle();
+        } else if (storedTheme === 'particlesjs') {
             applyParticleJsTheme();
         } else {
             hideCustomThemeSettings();
             removeCustomThemeStyle();
-            removeParticleJsTheme();
         }
     }
 }
@@ -98,66 +99,8 @@ function removeCustomThemeStyle() {
     const customThemeStyle = document.getElementById('custom-theme-style');
     if (customThemeStyle) {
         customThemeStyle.parentNode.removeChild(customThemeStyle);
-function applyParticleJsTheme() {
-    removeParticleJsTheme(); // Remove any existing particle.js elements
-
-    // Create particles.js container
-    const particlesContainer = document.createElement('div');
-    particlesContainer.id = 'particles-js';
-    particlesContainer.style.position = 'fixed';
-    particlesContainer.style.top = '0';
-    particlesContainer.style.left = '0';
-    particlesContainer.style.width = '100%';
-    particlesContainer.style.height = '100%';
-    particlesContainer.style.zIndex = '-1';
-    document.body.appendChild(particlesContainer);
-
-    // Load particles.js script
-    const particlesScript = document.createElement('script');
-    particlesScript.src = 'https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js';
-    particlesScript.onload = () => {
-        // Initialize particles.js
-        particlesJS("particles-js", {
-            "particles": {
-                "number": {"value": 80,"density": {"enable": true,"value_area": 800}},
-                "color": {"value": "#ffffff"},
-                "shape": {"type": "circle","stroke": {"width": 0,"color": "#000000"},"polygon": {"nb_sides": 5}},
-                "opacity": {"value": 0.5,"random": false,"anim": {"enable": false,"speed": 1,"opacity_min": 0.1,"sync": false}},
-                "size": {"value": 3,"random": true,"anim": {"enable": false,"speed": 40,"size_min": 0.1,"sync": false}},
-                "line_linked": {"enable": true,"distance": 150,"color": "#ffffff","opacity": 0.4,"width": 1},
-                "move": {"enable": true,"speed": 6,"direction": "none","random": false,"straight": false,"out_mode": "out","bounce": false,"attract": {"enable": false,"rotateX": 600,"rotateY": 1200}}
-            },
-            "interactivity": {
-                "detect_on": "canvas",
-                "events": {
-                    "onhover": {"enable": true,"mode": "repulse"},
-                    "onclick": {"enable": true,"mode": "push"},
-                    "resize": true
-                },
-                "modes": {
-                    "grab": {"distance": 400,"line_linked": {"opacity": 1}},
-                    "bubble": {"distance": 400,"size": 40,"duration": 2,"opacity": 8,"speed": 3},
-                    "repulse": {"distance": 200,"duration": 0.4},
-                    "push": {"particles_nb": 4},
-                    "remove": {"particles_nb": 2}
-                }
-            },
-            "retina_detect": true
-        });
-    };
-    document.head.appendChild(particlesScript);
+    }
 }
-
-function removeParticleJsTheme() {
-    const particlesContainer = document.getElementById('particles-js');
-    if (particlesContainer) {
-        particlesContainer.remove();
-    }
-    // Remove the particles.js script if it exists
-    const particlesScript = document.querySelector('script[src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"]');
-    if (particlesScript) {
-        particlesScript.remove();
-    }
 
 const storedTheme = localStorage.getItem('selectedTheme');
 if (storedTheme) {
@@ -242,21 +185,7 @@ function saveLinkBehavior() {
     alert('Link behavior setting saved!');
 }
 
-function saveDiscordWidgetBehavior() {
-    const discordWidgetTrue = document.getElementById('discordWidgetTrue');
-    const ShowWidget = discordWidgetTrue.checked;
-    localStorage.setItem('ShowDiscordWidget', ShowWidget);
-    alert('Setting saved!');
-}
-
-// Load the saved link behavior setting when the page loads
-document.addEventListener('DOMContentLoaded', function () {
-    const openInNewTab = localStorage.getItem('openLinksInNewTab') === 'true';
-    document.getElementById('openBlankTrue').checked = openInNewTab;
-    document.getElementById('openBlankFalse').checked = !openInNewTab;
-});
-
-document.addEventListener("DOMContentLoaded", function() {
+document.addEventListener("DOMContentLoaded", function () {
     const presetSelect = document.getElementById("presetSelect");
     const saveButton = document.getElementById("saveButton");
     const resetButton = document.getElementById("resetButton");
@@ -267,23 +196,23 @@ document.addEventListener("DOMContentLoaded", function() {
         presetSelect.value = selectedPreset;
     }
 
-    saveButton.addEventListener("click", function() {
+    saveButton.addEventListener("click", function () {
         const selectedValue = presetSelect.value;
         successMessage.textContent = "cloak saved, refreshing page...";
         setCookie("tabCloakPreset", selectedValue, { expires: 365 });
 
         successMessage.style.display = "block";
-        setTimeout(function() {
+        setTimeout(function () {
             window.location.reload();
         }, 1000);
     });
 
-    resetButton.addEventListener("click", function() {
+    resetButton.addEventListener("click", function () {
         deleteCookie("tabCloakPreset");
         presetSelect.selectedIndex = 0;
         successMessage.textContent = "cloak removed, refreshing page...";
         successMessage.style.display = "block";
-        setTimeout(function() {
+        setTimeout(function () {
             window.location.reload()
         }, 1000);
     });
@@ -298,12 +227,12 @@ document.addEventListener("DOMContentLoaded", function() {
 const panicSuccessMessage = document.getElementById("success-panic");
 let keyCombo = new Set();
 
-document.getElementById('panicKey').addEventListener('focus', function() {
+document.getElementById('panicKey').addEventListener('focus', function () {
     keyCombo.clear();
     this.value = '';
 });
 
-document.addEventListener('keydown', function(event) {
+document.addEventListener('keydown', function (event) {
     const panicKeyInput = document.getElementById('panicKey');
     if (document.activeElement === panicKeyInput) {
         event.preventDefault();
@@ -312,7 +241,7 @@ document.addEventListener('keydown', function(event) {
     }
 });
 
-document.addEventListener('keyup', function(event) {
+document.addEventListener('keyup', function (event) {
     const panicKeyInput = document.getElementById('panicKey');
     if (document.activeElement === panicKeyInput) {
         keyCombo.delete(event.key);
@@ -322,13 +251,13 @@ document.addEventListener('keyup', function(event) {
 function saveSettings() {
     const panicKey = document.getElementById('panicKey').value || 'Ctrl+Shift+P';
     const panicUrl = document.getElementById('panicUrl').value || 'https://www.desmos.com/scientific';
-    
+
     localStorage.setItem('panicKey', panicKey);
     localStorage.setItem('panicUrl', panicUrl);
-    
+
     panicSuccessMessage.textContent = "panic mode settings saved, refreshing page";
     panicSuccessMessage.style.display = "block";
-    setTimeout(function() {
+    setTimeout(function () {
         window.location.reload();
     }, 1000);
 }
@@ -383,7 +312,7 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 // export/import custom themes
-document.getElementById('export-theme').addEventListener('click', function() {
+document.getElementById('export-theme').addEventListener('click', function () {
     const blackout = document.createElement('div');
     blackout.id = 'blackout';
     const themePrompt = document.createElement('div');
@@ -408,7 +337,7 @@ document.getElementById('export-theme').addEventListener('click', function() {
     document.getElementById('blackout').style.display = 'block';
     document.getElementById('theme-prompt').style.display = 'block';
 
-    document.getElementById('save-theme').addEventListener('click', function() {
+    document.getElementById('save-theme').addEventListener('click', function () {
         let themeName = document.getElementById('theme-name').value;
         if (!themeName) {
             themeName = 'customtheme'
@@ -441,7 +370,7 @@ document.getElementById('export-theme').addEventListener('click', function() {
         document.body.removeChild(themePrompt);
     });
 
-    document.getElementById('cancel-export-theme').addEventListener('click', function() {
+    document.getElementById('cancel-export-theme').addEventListener('click', function () {
         document.getElementById('blackout').style.display = 'none';
         document.getElementById('theme-prompt').style.display = 'none';
         document.body.removeChild(blackout);
@@ -449,21 +378,21 @@ document.getElementById('export-theme').addEventListener('click', function() {
     });
 });
 
-document.getElementById('import-theme').addEventListener('click', function() {
+document.getElementById('import-theme').addEventListener('click', function () {
     const input = document.createElement('input');
     input.type = 'file';
     input.accept = '.theme';
     input.style.display = 'none';
     document.body.appendChild(input);
 
-    input.addEventListener('change', function(event) {
+    input.addEventListener('change', function (event) {
         const file = event.target.files[0];
         if (!file) {
             return;
         }
 
         const reader = new FileReader();
-        reader.onload = function(e) {
+        reader.onload = function (e) {
             const theme = JSON.parse(e.target.result);
             document.getElementById('background-image').value = theme.backgroundImage || '';
             document.getElementById('font-family').value = theme.fontFamily || '';
@@ -482,3 +411,147 @@ document.getElementById('import-theme').addEventListener('click', function() {
 
     input.click();
 });
+
+function deleteparticlesjs() {
+    const particlesCanvas = document.querySelector('.particles-js-canvas-el');
+    if (particlesCanvas) {
+        particlesCanvas.remove();
+    }
+}
+
+function applyParticleJsTheme() {
+    // Remove any existing particle.js elements
+    const particlesCanvas = document.querySelector('.particles-js-canvas-el');
+    if (particlesCanvas) {
+        particlesCanvas.remove();
+    }
+
+    // Create particles.js container
+    const particlesContainer = document.createElement('div');
+    particlesContainer.id = 'particles-js';
+    particlesContainer.style.position = 'fixed';
+    particlesContainer.style.top = '0';
+    particlesContainer.style.left = '0';
+    particlesContainer.style.width = '100vw';
+    particlesContainer.style.height = '100vh';
+    particlesContainer.style.zIndex = '-1';
+    document.body.appendChild(particlesContainer);
+
+    // Load particles.js script
+    const particlesScript = document.createElement('script');
+    particlesScript.src = 'https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js';
+    particlesScript.onload = () => {
+        // Initialize particles.js
+        particlesJS("particles-js", {
+            "particles": {
+                "number": {
+                    "value": 64,
+                    "density": {
+                        "enable": true,
+                        "value_area": 630
+                    }
+                },
+                "color": {
+                    "value": "#ffffff"
+                },
+                "shape": {
+                    "type": "circle",
+                    "stroke": {
+                        "width": 0,
+                        "color": "#000000"
+                    },
+                    "polygon": {
+                        "nb_sides": 5
+                    },
+                    "image": {
+                        "src": "",
+                        "width": 100,
+                        "height": 100
+                    }
+                },
+                "opacity": {
+                    "value": 0.5,
+                    "random": false,
+                    "anim": {
+                        "enable": false,
+                        "speed": 1,
+                        "opacity_min": 0.1,
+                        "sync": false
+                    }
+                },
+                "size": {
+                    "value": 3,
+                    "random": true,
+                    "anim": {
+                        "enable": false,
+                        "speed": 40,
+                        "size_min": 0.1,
+                        "sync": false
+                    }
+                },
+                "line_linked": {
+                    "enable": true,
+                    "distance": 150,
+                    "color": "#ffffff",
+                    "opacity": 0.5,
+                    "width": 0
+                },
+                "move": {
+                    "enable": true,
+                    "speed": 6,
+                    "direction": "none",
+                    "random": false,
+                    "straight": false,
+                    "out_mode": "out",
+                    "bounce": false,
+                    "attract": {
+                        "enable": false,
+                        "rotateX": 600,
+                        "rotateY": 1200
+                    }
+                }
+            },
+            "interactivity": {
+                "detect_on": "canvas",
+                "events": {
+                    "onhover": {
+                        "enable": true,
+                        "mode": "repulse"
+                    },
+                    "onclick": {
+                        "enable": true,
+                        "mode": "push"
+                    },
+                    "resize": true
+                },
+                "modes": {
+                    "grab": {
+                        "distance": 400,
+                        "line_linked": {
+                            "opacity": 1
+                        }
+                    },
+                    "bubble": {
+                        "distance": 400,
+                        "size": 40,
+                        "duration": 2,
+                        "opacity": 8,
+                        "speed": 3
+                    },
+                    "repulse": {
+                        "distance": 200,
+                        "duration": 0.4
+                    },
+                    "push": {
+                        "particles_nb": 4
+                    },
+                    "remove": {
+                        "particles_nb": 2
+                    }
+                }
+            },
+            "retina_detect": true
+        });
+    };
+    document.head.appendChild(particlesScript);
+}

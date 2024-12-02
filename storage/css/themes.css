@@ -58,6 +58,17 @@
     --text-glow: #000000
 }
 
+:root.theme-particlesjs {
+    --background-image: url('/images/icons/nothing.ico');
+    --font-family: 'Ubuntu', sans-serif;
+    --text-color: #fff;
+    --background-color: black;
+    --border-color1: #575757;
+    --border-color2: #ffffff;
+    --hover-color: #777777;
+    --text-glow: #363636;
+}
+
 :root.theme-azurite {
     --background-image: url('/images/backgrounds/azure/homebg.jpg');
     --font-family: 'Ubuntu', sans-serif;
