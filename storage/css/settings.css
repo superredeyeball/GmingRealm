@@ -151,7 +151,7 @@ button {
     animation: searchTween 0.5s ease-in-out forwards;
 }
 
-select, #panicKey, #panicURL {
+select, #panicKey, #codeKey, #panicURL {
     background-color: var(--background-color);
     color: var(--text-color);
     width: 50%;

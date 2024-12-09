@@ -227,6 +227,9 @@ document.addEventListener("DOMContentLoaded", function () {
 const panicSuccessMessage = document.getElementById("success-panic");
 let keyCombo = new Set();
 
+const codeSuccessMessage = document.getElementById("success-code");
+let codeKeyCombo = new Set();
+
 document.getElementById('panicKey').addEventListener('focus', function () {
     keyCombo.clear();
     this.value = '';
@@ -248,6 +251,27 @@ document.addEventListener('keyup', function (event) {
     }
 });
 
+document.getElementById('codeKey').addEventListener('focus', function () {
+    codeKeyCombo.clear();
+    this.value = '';
+});
+
+document.addEventListener('keydown', function (event) {
+    const codeKeyInput = document.getElementById('codeKey');
+    if (document.activeElement === codeKeyInput) {
+        event.preventDefault();
+        codeKeyCombo.add(event.key);
+        codeKeyInput.value = Array.from(codeKeyCombo).join('+');
+    }
+});
+
+document.addEventListener('keyup', function (event) {
+    const codeKeyInput = document.getElementById('codeKey');
+    if (document.activeElement === codeKeyInput) {
+        codeKeyCombo.delete(event.key);
+    }
+});
+
 function saveSettings() {
     const panicKey = document.getElementById('panicKey').value || 'Ctrl+Shift+P';
     const panicUrl = document.getElementById('panicUrl').value || 'https://www.desmos.com/scientific';
@@ -257,6 +281,18 @@ function saveSettings() {
 
     panicSuccessMessage.textContent = "panic mode settings saved, refreshing page";
     panicSuccessMessage.style.display = "block";
+    setTimeout(function () {
+        window.location.reload();
+    }, 1000);
+}
+
+function saveCodeSettings() {
+    const codeKey = document.getElementById('codeKey').value || 'Ctrl+Shift+~';
+
+    localStorage.setItem('codeKey', codeKey);
+
+    codeSuccessMessage.textContent = "executor mode settings saved, refreshing page";
+    codeSuccessMessage.style.display = "block";
     setTimeout(function () {
         window.location.reload();
     }, 1000);

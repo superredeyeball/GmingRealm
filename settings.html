@@ -147,6 +147,13 @@
             <p id="success-panic" style="display: none;">success message here</p>
 
             <br>
+            <h2 style="margin-bottom: 20px;">code executor</h2>
+            <p>To use this, activate the keybind and a popup with a textbox for code will show up.<br>
+            <input type="text" id="codeKey" placeholder="choose a key combination" readonly>
+            <button onclick="saveCodeSettings()">set execution key</button>
+            <p id="success-code" style="display: none;">success message here</p>
+
+            <br>
             <h2>link behaviour</h2>
             <label>
                 <input type="radio" name="openBlankSetting" value="true" id="openBlankTrue"> open links in new tab

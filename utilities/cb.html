@@ -1,0 +1,134 @@
+<html lang="en">
+
+<head>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-B9R93ESZH8"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+
+        gtag('config', 'G-B9R93ESZH8');
+    </script>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" href="../images/ico.ico" type="image/x-icon">
+    <link rel="stylesheet" href="/storage/css/apps.css">
+    <title>Chromebook Utilities | GmingRealm</title>
+
+    <meta name="description"
+        content="GmingRealm is a one of a kind, highly sophisticated, unbIocked gaming website! This ga&#173;me site has many features that others do not have, such as having NO ads, tab hiding + hiding from history, panic key combo, themes, and more! Also called Gaming Realm or GamingRealm.">
+    <meta property="og:site_name" content="Gaming Realm">
+    <meta property="og:title" content="Gaming Realm">
+    <meta property="og:type" content="website">
+    <meta property="og:description"
+        content="GmingRealm is a one of a kind, highly sophisticated, unbIocked gaming website! This ga&#173;me site has many features that others do not have, such as having NO ads, tab hiding + hiding from history, panic key combo, themes, and more! Also called Gaming Realm or GamingRealm.">
+
+    <script>
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', function () {
+                navigator.serviceWorker.register('/offline-worker.js').then(function (registration) {
+                    console.log('service worker initalised! scope:', registration.scope);
+
+                    navigator.serviceWorker.addEventListener('message', function (event) {
+                        if (event.data === 'cached') {
+                            document.getElementById('cache-status').style.display = 'block';
+                        }
+                    });
+                }, function (error) {
+                    console.log('ack, error with serviceworker! ', error);
+                });
+            });
+        }
+    </script>
+</head>
+
+<body>
+    <div style="width: 75%">
+        <h1>Chromebook Utilities</h1>
+        <h2>Dedicated to helping people bypass restrictions on specifically the Chromebook.</h2>
+        <hr>
+        <div>
+            <h1 id="extensions">Extensions</h1>
+            <h2>Disabling extensions</h2>
+            <p>This isn't too hard to do. Though, it is only possible to <b>temporarily</b> disable them.<br>According
+                to others around, it may not work for everyone (it works for me)</p>
+            <h3>How to do it</h3>
+            <nl>
+                <li>1. Copy and paste this into the address
+                    bar:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<code>chrome://restart</code></li>
+                <li>2. Press enter.</li>
+            </nl>
+            <p>It will restart your chromebook and keep you logged in which restarts extensions so it makes it spend
+                time
+                to reload.<br>
+                You can also do this
+                URL:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<code>chrome://inducebrowsercrashforrealz</code><br>
+                It will crash your chromebook which just restarts it.
+                <br><br>
+                Tested on the LineWize extension so far.
+            </p>
+
+            <h2>Method 2</h2>
+            <p>This may not work for all extensions and chromebooks but it might.</p>
+            <p>Type <code>chrome://inspect/#extensions</code> into the address bar and press enter.<br>
+                Find the extension(s) you want to disable.<br>
+                Click “inspect”. There will be a series of tabs on the top. Click “console”.<br>
+                Then, at the bottom there is a type pad. Write down: <code>window.close(true)</code> THEN BOOM.<br>
+                It’s gone.<br><br>To reverse this, restart your computer.</p>
+            <hr>
+            <h2>Inspect extensions</h2>
+            <p>I don't know why this would be useful and it may not work for everyone is dev tools is disabled but you
+                can inspect some chrome extensions.<br>
+                To do it, copy and paste this into the address bar and press
+                enter:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<code>chrome://inspect/#extensions</code></p>
+        </div>
+        <hr>
+        <div>
+            <h2>Secret settings</h2>
+            <p>I randomly stumbled across this. It lets you do modify some secret settings.<br>
+                <b>Hint: If <code>chrome://settings</code> or other things such as that URL are blocked by an extension,
+                </b>
+            </p>
+            <br>
+            <p>To do this, enter <code>chrome://flags</code></p>
+        </div>
+        <hr>
+        <div>
+            <h2>Secret terminal/command line (crosh)</h2>
+            <p>Crosh is the terminal/command line for Chromebooks.<br>
+                To do it...</p>
+            <nl>
+                <li>1. Press <code>ctrl+alt+t</code> on the chromebook.</li>
+            </nl>
+            <p>This is the shortcut for opening crosh.<br><br>
+                Your school will likely try to block it by automatically closing it.<br>
+                There is a way around this though.<br><br>
+                You know how you can drag tabs around on chrome to reposition them?<br>
+                Crosh opens up like a tab. Simply click and drag that tab as fast<br>
+                as you can before it closes. You'll get used to it.<br>
+                Bam! Now you can do things such as powerwashing/rollbacking your chromebook! (Setting chromebook to a
+                previous version/update)</p>
+        </div>
+        <hr>
+        <p> // © all information here is made by @superblueeyeball and is copyright © \\</p>
+
+
+
+        <script src="/storage/js/cloak.js"></script>
+        <script src="/storage/js/theme.js"></script>
+        <script src="/storage/js/cookie.js"></script>
+        <script src="/storage/js/apps.js"></script>
+        <!-- <div class="dizzy-embed-container"
+        style="position: fixed; bottom: 20px; right: 20px; z-index: 1000; background-color: transparent; padding: 10px;">
+        <script src="https://cdn.jsdelivr.net/npm/@widgetbot/crate@3" async defer>
+            new Crate({
+                server: '1237829235998064651', // Class Y
+                channel: '1237829235998064654' // #general
+            });
+        </script>
+    </div> -->
+    </div>
+</body>
+
+</html>

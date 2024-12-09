@@ -46,13 +46,16 @@
 <body>
     <h1>pro&#173;xys</h1>
     <h2><a href="makeyourownlink.html" style="text-decoration: underline;">CLICK ME FOR PRO&#173;XY LINK MAKING TUTORIAL!</a></h2>
+    <hr>
+    <h3><a href="cb.html#extensions" style="text-decoration: underline;">Is it an extension blocking the website?<br>No need to use a pro&#173;xy!<br>Simply use this (experimental) method on temporarily disabling extensions by clicking me!</a></h3>
+    <hr style="width: 75%;"><br>
     <div>
         <div class="center">
             <input type="text" id="urlInput" placeholder="Enter URL" class="tbox" /><br>
             <button id="openTranslateBtn" class="button" style="height : 100px; font-size: 20px;">Open Google Translate UnbIock Method<br><span style="font-size: 13px;">(UnbIocked for everyone, bypasses IP blacklisting)<br>Doesn't unbIock dependments though such as images and urls so you will need to put it into here yourself</span></button>
         </div><br><hr style="width: 75%;"><br>
         <div class="center">
-            <input type="text" id="urlInput" placeholder="Enter URL" class="tbox" /><br>
+            <input type="text" id="urlInput2" placeholder="Enter URL" class="tbox" /><br>
             <button id="openCacheBtn" class="button" style="height : 100px; font-size: 20px;">Open Google Cache UnbIock Method<br><span style="font-size: 13px;">(Works sometimes but sometimes not, though, it also can be an
                 unbIocked search engine.)</span></button>
         </div>
@@ -64,7 +67,7 @@
             });
 
             document.getElementById('openCacheBtn').addEventListener('click', function () {
-                const urlInput = document.getElementById('urlInput').value;
+                const urlInput = document.getElementById('urlInput2').value;
                 const cacheUrl = 'http://webcache.googleusercontent.com/search?q=cache:' + encodeURIComponent(urlInput);
                 window.open(cacheUrl, '_blank');
             });
