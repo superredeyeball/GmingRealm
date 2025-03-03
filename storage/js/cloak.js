@@ -1,5 +1,3 @@
-window.location.replace("https://superredeyeball.vercel.app/#moveddomain");
-/*
 console.log("cloak.js loaded.")
 
 /////////////////////////////////////////// Line numbering stuff ////////////////////////////////////////////////////
@@ -241,7 +239,7 @@ function updateFavicon() {
     }
 }
 
-*
+*/
 
 (function() {
     const panicKey = localStorage.getItem('panicKey');
@@ -472,7 +470,7 @@ function updateFavicon() {
 
 
 
-/
+/*
 
 function applyDiscordWidgetSetting() {
     const isEnabled = getCookie('ShowDiscordWidget') === 'true';
@@ -495,5 +493,4 @@ document.addEventListener("DOMContentLoaded", function () {
     // Load settings for discord widget when page loads
     applyDiscordWidgetSetting();
 });
-
 */
