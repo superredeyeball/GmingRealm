@@ -1,64 +1,683 @@
-<html lang="en"><head>
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-7FN7LEVWXD"></script>
-    <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
+<!DOCTYPE html>
+<html manifest="editor.appcache">
+	<head>
+		<title>html editor</title>
+		<link rel="stylesheet" href="js/codemirror/codemirror.css">
+		<script src="js/codemirror/codemirror.js"></script>
+		<script src="js/codemirror/mode/xml.js"></script>
+		<script src="js/codemirror/mode/javascript.js"></script>
+		<script src="js/codemirror/mode/css.js"></script>
+		<script src="js/codemirror/mode/htmlmixed.js"></script>
+		<script src="js/rawinflate.js"></script>
+		<script src="js/rawdeflate.js"></script>
+		<script src="js/esprima.js"></script>
+		<style>
 
-      gtag('config', 'G-7FN7LEVWXD');
-    </script>
-        <title>HTML Code Editor | GmingRealm</title>
-        <link rel="shortcut icon" href="../../images/ico.ico" type="image/x-icon">
-        <script src="../../storage/js/cloak.js"></script>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width,initial-scale=1">
+			html, body {
+
+				height: 100%;
+
+			}
+
+			body {
+
+				margin: 0px;
+				overflow: hidden;
+
+				font-family: Arial;
+
+			}
+
+			a {
+
+				color: #ffffff;
+
+			}
+
+			h1 {
+
+				font-size: 20px;
+				margin-top: 0px;
+
+			}
+
+			.button {
+
+				font-size: 10px;
+				text-transform: uppercase;
+				text-decoration: none;
+
+				color: rgb(80,80,80);
+				border: transparent;
+				background-color: rgb(235,235,235);
+
+				margin: 2px;
+				padding: 8px 10px;
+
+				cursor: pointer;
+
+			}
+
+			.button:hover {
+
+				color: rgb(235,235,235);
+				background-color: rgb(80,80,80);
+
+			}
+
+			.button path {
+
+				stroke: rgb(80,80,80);
+
+			}
+
+			.button:hover path {
+
+				stroke: rgb(235,235,235);
+
+			}
+
+			#preview {
+
+				position: absolute;
+				left: 0px;
+				top: 0px;
+				width: 100%;
+				height: 100%;
+
+			}
+
+			#editor {
+
+				position: absolute;
+				width: 100%;
+				height: 100%;
+
+			}
+
+			#editor .CodeMirror {
+
+				height: 100%;
+				font-size: 14px;
+				background-color: rgba(255,255,255,0.85);
+
+			}
+
+			#editor .CodeMirror-scroll {
+
+				height: 100%;
+
+			}
+
+			#editor .CodeMirror div.CodeMirror-selected {
+
+				background: rgba(0,0,0,0.1);
+
+			}
+
+			#editor .CodeMirror-focused div.CodeMirror-selected {
+
+				background: rgba(0,0,255,0.1);
+
+			}
+
+			#editor .CodeMirror .errorLine {
+
+				background: rgba(255,0,0,0.25);
+
+			}
+
+			#editor .CodeMirror .esprima-error {
+
+				color: #f00;
+				text-align: right;
+				padding: 0px 20px;
+
+			}
+
+			#toolbar {
+
+				position: absolute;
+				top: 15px;
+				right: 30px;
+				text-align: right;
+				z-index: 10; /* CodeMirror sets z-index */
+
+			}
+
+			#popup {
+
+				position: absolute;
+				color: rgb(235,235,235);
+				padding: 20px 20px 20px 20px;
+				background-color: rgb(80,80,80);
+				z-index: 20; /* CodeMirror sets z-index */
+
+			}
+
+		</style>
+	</head>
+	<body>
+		<div id="preview"></div>
+		<div id="editor"></div>
+		<div id="toolbar"></div>
+		<div id="popup"></div>
+		<script>
+
+			window.URL = window.URL || window.webkitURL;
+
+			// deflate
+
+			function decode( string ) {
+
+				return RawDeflate.inflate( window.atob( string ) );
+
+			}
+
+			function encode( string ) {
+
+				return window.btoa( RawDeflate.deflate( string ) );
+
+			}
+
+			//
+
+			var defaultCode = decode( 'bVRbb9owFH6mv+KMvaRT6tBNqFMISBtl7cOqVW2laY/GPhCzxGa2w6UV/322kyCiEiHFOZfv+87FZB9uf01f/jzOILdlMbnI6lcvy5Fy9+5lJVoKLKfaoB33K7u4+toPDmP3BfpTb674Ht78qTen7O9Sq0ryK6YKpVP4uAjPKLhLqpdCpjCoP9UG9aJQ2xRywTnKYD148KRFz5JGSeZZamKmxdqC0Wzcz61dp0nCuFwZwgpV8UVBNRKmyoSu6C4pxNwkNteIZGUSPbxpPkohnaE/cUwB7gR5cuFlbKgGRkvUNAbDUGIMGiVHjXrU+peoXHv0PoaSWtSCFu6EJh8FhEUlmRVKgpDCRpeuQ6HoFgXGIHELL/dPsxmZUrmh5qlxRZejTihxvX8WrxjBVkiutkRIifq34DaPO6Z7FMvcQpPOFatKlJb41hG6Xju4aS4KHh1LIVyVswJ9lM8KaXXVHXmPqM0aXTUbnAZvBDfD+L0aSM7IiWFArmO4HrS6agKyVkb4/pBXx/WlIQ+t7nA/e0vUimtb3u1eNce7xhGB53K/lq0dTSfjwU3pOzWCPTTeCN6g2djBbhAeX5/GhXZqU7C6whPDT+GwfMUpfIbDsXV++O94ojN70ooL5RLK3UhCbgN06C4QlcInnu7QvwqN/RbsLuKH1xS1cR05RCsbYsjOKbt1biLV1kF9cmNxVQ5HZ0L350KvR90FJvUhaq9HszedEurVDxTHIoL/5N5lSX213VX3fz7/AQ==' );
+
+			var documents = [ { filename: 'Untitled', filetype: 'text/plain', autoupdate: true, code: defaultCode } ];
+
+			if ( localStorage.codeeditor !== undefined ) {
+
+				documents = JSON.parse( localStorage.codeeditor );
+
+			}
+
+			if ( window.location.hash ) {
+
+				var hash = window.location.hash.substr( 1 );
+				var version = hash.substr( 0, 2 );
+
+				if ( version == 'A/' ) {
+
+					alert( 'That shared link format is no longer supported.' );
+
+				} else if ( version == 'B/' ) {
+
+					documents[ 0 ].code = decode( hash.substr( 2 ) );
+
+				}
+
+			}
+
+			// preview
+
+			var preview = document.getElementById( 'preview' );
+
+			// editor
+
+			var interval;
+
+			var editor = document.getElementById( 'editor' );
+			var codemirror = CodeMirror( editor, {
+
+				value: documents[ 0 ].code,
+				mode: 'text/html',
+				lineNumbers: true,
+				matchBrackets: true,
+				indentWithTabs: true,
+				tabSize: 4,
+				indentUnit: 4
+
+			} );
+
+			codemirror.on( 'change', function() {
+
+				buttonSave.style.display = '';
+				buttonDownload.style.display = 'none';
+
+				if ( documents[ 0 ].autoupdate === false ) return;
+
+				clearTimeout( interval );
+				interval = setTimeout( update, 500 );
+
+			} );
+
+			// toolbar
+
+			var toolbar = document.getElementById( 'toolbar' );
+
+			var buttonUpdate = document.createElement( 'button' );
+			buttonUpdate.className = 'button';
+
+			var checkbox = document.createElement( 'input' );
+			checkbox.type = 'checkbox';
+
+			if ( documents[ 0 ].autoupdate === true ) checkbox.checked = true;
+
+			checkbox.style.margin = '-4px 4px -4px 0px';
+			checkbox.addEventListener( 'click', function ( event ) {
+
+				event.stopPropagation();
+
+				documents[ 0 ].autoupdate = documents[ 0 ].autoupdate === false;
+
+				localStorage.codeeditor = JSON.stringify( documents );
+
+			}, false );
+			buttonUpdate.appendChild( checkbox );
+			buttonUpdate.appendChild( document.createTextNode( 'update' ) );
+
+			buttonUpdate.addEventListener( 'click', function ( event ) {
+
+				update();
+
+			}, false );
+			toolbar.appendChild( buttonUpdate );
+
+			var buttonHide = document.createElement( 'button' );
+			buttonHide.className = 'button';
+			buttonHide.textContent = 'hide code';
+			buttonHide.addEventListener( 'click', function ( event ) {
+
+				toggle();
+
+			}, false );
+			toolbar.appendChild( buttonHide );
+
+			var buttonMenu = document.createElement( 'button' );
+			buttonMenu.className = 'button';
+			buttonMenu.innerHTML = '<svg width="8" height="8"><path d="M 0,1.5 8,1.5 M 0,4.5 8,4.5 M 0,7.5 8,7.5"></svg>';
+			buttonMenu.addEventListener( 'click', function ( event ) {
+
+				menu.style.display = menu.style.display === '' ? 'none' : '';
+
+			}, false );
+			toolbar.appendChild( buttonMenu );
+
+			toolbar.appendChild( document.createElement( 'br' ) );
+
+			var menu = document.createElement( 'span' );
+			menu.style.display = 'none';
+			toolbar.appendChild( menu );
+
+			var buttonSave = document.createElement( 'button' );
+			buttonSave.className = 'button';
+			buttonSave.textContent = 'save';
+			buttonSave.addEventListener( 'click', function ( event ) {
+
+				save();
+
+			}, false );
+			menu.appendChild( buttonSave );
+
+			var buttonDownload = document.createElement( 'a' );
+			buttonDownload.className = 'button';
+			buttonDownload.style.display = 'none';
+			buttonDownload.download = 'index.html';
+			buttonDownload.textContent = 'download';
+			menu.appendChild( buttonDownload );
+
+			var buttonShare = document.createElement( 'button' );
+			buttonShare.className = 'button';
+			buttonShare.textContent = 'share';
+			buttonShare.addEventListener( 'click', function ( event ) {
+
+				var dom = document.createElement( 'input' );
+				dom.value = 'http://mrdoob.com/projects/htmleditor/#B/' + encode( codemirror.getValue() );
+				dom.style.width = '400px';
+				dom.style.padding = '5px';
+				dom.style.marginTop = '20px';
+				dom.style.border = '0px';
+
+				popup.set( dom );
+				popup.show();
+
+				dom.focus();
+				dom.select();
+
+			}, false );
+			menu.appendChild( buttonShare );
+
+			var buttonReset = document.createElement( 'button' );
+			buttonReset.className = 'button';
+			buttonReset.textContent = 'reset';
+			buttonReset.addEventListener( 'click', function ( event ) {
+
+				if ( confirm( 'Are you sure?' ) === true ) {
+
+					codemirror.setValue( defaultCode );
+					save();
+
+				}
+
+			}, false );
+			menu.appendChild( buttonReset );
+
+			var buttonAbout = document.createElement( 'button' );
+			buttonAbout.className = 'button';
+			buttonAbout.textContent = 'about';
+			buttonAbout.addEventListener( 'click', function ( event ) {
+
+				var dom = document.createElement( 'div' );
+				dom.style.width = '400px';
+				dom.style.padding = '5px';
+				dom.style.border = '0px';
+				dom.style.textAlign = 'center';
+				dom.innerHTML = '<h1>HTML EDITOR<\/h1><a href="https://github.com/mrdoob/htmleditor" target="_blank">Source code</a>.<br>Powered by <a href="http://codemirror.net/" target="_blank">CodeMirror ' + CodeMirror.version + '</a> and <a href="http://esprima.org/" target="_blank">Esprima ' + esprima.version + '</a>.';
+				popup.set( dom );
+				popup.show();
+
+			}, false );
+			menu.appendChild( buttonAbout );
 
 
+			// popup
+
+			var popup = ( function () {
+
+				var scope = this;
+
+				var element = document.getElementById( 'popup' );
+				element.style.display = 'none';
+
+				var buttonClose = ( function () {
+
+					var svg = document.createElementNS( 'http://www.w3.org/2000/svg', 'svg' );
+					svg.setAttribute( 'width', 32 );
+					svg.setAttribute( 'height', 32 );
+
+					var path = document.createElementNS( 'http://www.w3.org/2000/svg', 'path' );
+					path.setAttribute( 'd', 'M 9,12 L 11,10 L 15,14 L 19,10 L 21,12 L 17,16 L 21,20 L 19,22 L 15,18 L 11,22 L 9,20 L 13,16' );
+					path.setAttribute( 'fill', 'rgb(235,235,235)' );
+					svg.appendChild( path );
+
+					return svg;
+
+				} )();
+
+				buttonClose.style.position = 'absolute';
+				buttonClose.style.top = '5px';
+				buttonClose.style.right = '5px';
+				buttonClose.style.cursor = 'pointer';
+				buttonClose.addEventListener( 'click', function ( event ) {
+
+					scope.hide();
+
+				}, false );
+				element.appendChild( buttonClose );
+
+				var content = document.createElement( 'div' );
+				element.appendChild( content );
+
+				function update() {
+
+					element.style.left = ( ( window.innerWidth - element.offsetWidth ) / 2 ) + 'px';
+					element.style.top = ( ( window.innerHeight - element.offsetHeight ) / 2 ) + 'px';
+
+				}
+
+				window.addEventListener( 'load', update, false );
+				window.addEventListener( 'resize', update, false );
+
+				//
+
+				this.show = function () {
+
+					element.style.display = '';
+					update();
+
+				};
+
+				this.hide = function () {
+
+					element.style.display = 'none';
+
+				};
+
+				this.set = function ( value ) {
+
+					while ( content.children.length > 0 ) {
+
+						content.removeChild( content.firstChild );
+
+					}
+
+					content.appendChild( value );
+
+				};
+
+				return this;
+
+			} )();
 
 
-    <script src="https://polyfill.io/v3/polyfill.min.js?features=default,es6,es2015,es2016,es2017,es2018,es2019,es2020,es2021"></script>
-    <script src="https://cdn.jsdelivr.net/npm/es5-shim@4.0.3/es5-shim.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/es6-shim@0.35.5/es6-shim.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/es6-promise@4.2.8/dist/es6-promise.auto.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/es7-shim@6.0.0/es7-shim.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/jqueryui-touch-punch@0.2.3/jquery.ui.touch-punch.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/classlist-polyfill@1.2.0/classList.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
-    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css">
-    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
-    <style>body{margin:0;font-family:'Courier New',Courier,monospace;display:flex;flex-direction:column;height:100vh;overflow:hidden;background-color:#333;color:#fff}#toolbar{display:flex;padding:10px;background-color:#222}#toolbar label{cursor:pointer;padding:6px 10px;background-color:#4caf50;color:#fff;border-radius:5px;margin-right:10px}#toolbar button{margin-right:10px;transition:background-color .3s ease}#toolbar button:hover{background-color:#555}#editor-container,.preview-container{flex:1;height:100%;overflow:auto;box-sizing:border-box}#editor{width:100%;height:100%;padding:10px;box-sizing:border-box;background-color:#444;color:#fff;border:none}.preview-container{background-color:#fff;color:#fff;width:100%;height:100%}#preview{width:100%;height:100%}.visually-hidden{position:absolute;width:1px;height:1px;margin:-1px;padding:0;overflow:hidden;clip:rect(0,0,0,0);border:0}#divider{cursor:row-resize;background-color:#222;height:8px;width:100%;display:flex;justify-content:center;align-items:center}#divider:hover{background-color:#555}</style>
-    </head>
+			// events
 
-    <body>
-    <div id="toolbar">
-    <label for="file-input" class="custom-file-upload" style="display:none">Choose File</label>
-    <input type="file" id="file-input" accept=".html, .txt" class="visually-hidden">
-    <button class="btn btn-light" onclick="newDocument()">New</button>
-    <button class="btn btn-light" onclick="openFile()">Open</button>
-    <button class="btn btn-light" onclick="saveFile()">Save</button>
-    <script></script>
-    </div>
-    <div id="editor-container" style="height: 50%;">
-    <textarea id="editor" placeholder="Enter your code here..."></textarea>
-    </div>
-    <div id="divider" draggable="true"></div>
-    <div class="preview-container" id="preview-container" style="height: 50%;">
-    <iframe id="preview" frameborder="0"></iframe>
-    </div>
-    <script>function newDocument(){confirm("Are you sure you want to start a new document? Any unsaved changes will be lost.")&&(editor.value="",updatePreview())}</script>
-    <script>const editorContainer=document.getElementById("editor-container"),previewContainer=document.getElementById("preview-container"),divider=document.getElementById("divider");let editorContainerHeight=50,previewContainerHeight=50;updateContainerHeights();let isDragging=!1,startY=0;function updateContainerHeights(){editorContainer.style.height=`${editorContainerHeight}%`,previewContainer.style.height=`${previewContainerHeight}%`}divider.addEventListener("mousedown",(e=>{isDragging=!0,startY=e.clientY})),window.addEventListener("mousemove",(e=>{if(isDragging){const t=e.clientY-startY;startY=e.clientY,editorContainerHeight+=t/window.innerHeight*100,previewContainerHeight-=t/window.innerHeight*100,editorContainerHeight=Math.max(10,Math.min(90,editorContainerHeight)),previewContainerHeight=100-editorContainerHeight,updateContainerHeights()}})),window.addEventListener("mouseup",(()=>{isDragging=!1}))</script>
-    <script>$(document).ready((function(){$("#toolbar button").hover((function(){$(this).addClass("hovered")}),(function(){$(this).removeClass("hovered")}))}));const editor=document.getElementById("editor"),preview=document.getElementById("preview"),fileInput=document.getElementById("file-input");let pastebinApiKey;function updatePreview(){const e=editor.value,t=preview.contentDocument||preview.contentWindow.document;t.open(),t.write(e),t.close()}function openFile(){fileInput.click()}function saveFile(){const e=editor.value,t=new Blob([e],{type:"text/plain"}),n=document.createElement("a"),i=URL.createObjectURL(t);n.href=i,n.download="code.txt",document.body.appendChild(n),n.click(),document.body.removeChild(n),URL.revokeObjectURL(i)}function saveOnline(){const e=editor.value,t=prompt("Enter the file name:");if(!t)return void alert("File name is required!");const n=prompt("Enter your Pastebin API key:");if(!n)return void alert("Pastebin API key is required!");$.ajax({type:"POST",url:"https://pastebin.com/api/api_post.php",data:{api_dev_key:n,api_paste_code:e,api_paste_private:"0",api_paste_name:t,api_paste_expire_date:"10M",api_option:"paste"},success:function(e){e.startsWith("Bad API request")?alert("Error saving code online. Please check your Pastebin API key and try again."):alert("Code saved online successfully! Pastebin URL: "+e)},error:function(){console.error("Error saving code online."),alert("Error saving code online. Please try again.")}})}editor.addEventListener("input",updatePreview),fileInput.addEventListener("change",(function(){const e=fileInput.files[0];if(e){const t=new FileReader;t.onload=function(e){editor.value=e.target.result,updatePreview()},t.readAsText(e)}}))</script>
-    <script>$(document).ready((function(){$("#toolbar button").button({classes:{"ui-button":"custom-button-hover"}})}))</script>
-    <script>$(document).ready((function(){$("#divider").resizable({handles:"s",minHeight:100,maxHeight:window.innerHeight-50,resize:function(e,i){const n=i.size.height/window.innerHeight*100;updateContainerHeights(n,100-n)}})}))</script>
-    <script>function updateContainerHeights(e,t){editorContainer.style.height=`${e}%`,previewContainer.style.height=`${t}%`}</script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
-    
-    </body>
+			document.addEventListener( 'drop', function ( event ) {
+
+				event.preventDefault();
+				event.stopPropagation();
+
+				var file = event.dataTransfer.files[ 0 ];
+
+				documents[ 0 ].filename = file.name;
+				documents[ 0 ].filetype = file.type;
+
+				var reader = new FileReader();
+
+				reader.onload = function ( event ) {
+
+					codemirror.setValue( event.target.result );
+
+				};
+
+				reader.readAsText( file );
+
+			}, false );
+
+			document.addEventListener( 'keydown', function ( event ) {
+
+				if ( event.keyCode === 83 && ( event.ctrlKey === true || event.metaKey === true ) ) {
+
+					event.preventDefault();
+					save();
+
+				}
+
+				if ( event.keyCode === 13 && ( event.ctrlKey === true || event.metaKey === true ) ) {
+
+					update();
+
+				}
+
+				if ( event.keyCode === 27 ) {
+
+					toggle();
+
+				}
+
+			}, false );
+
+
+			// actions
+
+			function update() {
+
+				var value = codemirror.getValue();
+
+				if ( validate( value ) ) {
+
+					// remove previous iframe
+
+					if ( preview.children.length > 0 ) {
+
+						preview.removeChild( preview.firstChild );
+
+					}
+
+					//
+
+					var iframe = document.createElement( 'iframe' );
+					iframe.style.width = '100%';
+					iframe.style.height = '100%';
+					iframe.style.border = '0';
+					preview.appendChild( iframe );
+
+					var content = iframe.contentDocument || iframe.contentWindow.document;
+
+					// workaround for chrome bug
+					// http://code.google.com/p/chromium/issues/detail?id=35980#c12
+
+					value = value.replace( '<script>', '<script>if ( window.innerWidth === 0 ) { window.innerWidth = parent.innerWidth; window.innerHeight = parent.innerHeight; }' );
+
+					content.open();
+					content.write( value );
+					content.close();
+
+				}
+
+			}
+
+			var errorLines = [];
+			var widgets = [];
+
+			function validate( value ) {
+
+				return codemirror.operation( function () {
+
+					while ( errorLines.length > 0 ) {
+
+						codemirror.removeLineClass( errorLines.shift(), 'background', 'errorLine' );
+
+					}
+
+					for ( var i = 0; i < widgets.length; i ++ ) {
+
+						codemirror.removeLineWidget( widgets[ i ] );
+
+					}
+
+					widgets.length = 0;
+
+					// remove html
+
+					var string = '\n';
+					var lines = value.split( '\n' );
+					var lineCurrent = 0, lineTotal = lines.length;
+
+					while ( lineCurrent < lineTotal && lines[ lineCurrent ].indexOf( '<script>' ) === -1 ) {
+
+						string += '\n';
+						lineCurrent ++;
+
+					}
+
+					var lineStart = lineCurrent ++;
+
+					while ( lineCurrent < lineTotal && lines[ lineCurrent ].indexOf( '<\/script>' ) === -1 ) {
+
+						string += lines[ lineCurrent ] + '\n';
+						lineCurrent ++;
+
+					}
+
+					//
+
+					try {
+
+						var result = esprima.parse( string, { tolerant: true } ).errors;
+
+						for ( var i = 0; i < result.length; i ++ ) {
+
+							var error = result[ i ];
+
+							var message = document.createElement( 'div' );
+							message.className = 'esprima-error';
+							message.textContent = error.message.replace(/Line [0-9]+: /, '');
+
+							var lineNumber = error.lineNumber - 1;
+							errorLines.push( lineNumber );
+
+							codemirror.addLineClass( lineNumber, 'background', 'errorLine' );
+
+							var widget = codemirror.addLineWidget(
+								lineNumber,
+								message
+							);
+
+							widgets.push( widget );
+
+						}
+
+					} catch ( error ) {
+
+						var message = document.createElement( 'div' );
+						message.className = 'esprima-error';
+						message.textContent = error.message.replace(/Line [0-9]+: /, '');
+
+						var lineNumber = error.lineNumber - 1;
+						errorLines.push( lineNumber );
+
+						codemirror.addLineClass( lineNumber, 'background', 'errorLine' );
+
+						var widget = codemirror.addLineWidget(
+							lineNumber,
+							message
+						);
+
+						widgets.push( widget );
+
+					}
+
+					return errorLines.length === 0;
+
+				});
+
+			}
+
+			function save() {
+
+				documents[ 0 ].code = codemirror.getValue();
+
+				localStorage.codeeditor = JSON.stringify( documents );
+
+				var blob = new Blob( [ codemirror.getValue() ], { type: documents[ 0 ].filetype } );
+				var objectURL = URL.createObjectURL( blob );
+
+				buttonDownload.href = objectURL;
+
+				var date = new Date();
+				buttonDownload.download = documents[ 0 ].filename;
+
+				buttonSave.style.display = 'none';
+				buttonDownload.style.display = '';
+
+			}
+
+			function toggle() {
+
+				if ( editor.style.display === '' ) {
+
+					buttonHide.textContent = 'show code';
+
+					editor.style.display = 'none';
+					buttonUpdate.style.display = 'none';
+					buttonShare.display = 'none';
+
+				} else {
+
+					buttonHide.textContent = 'hide code';
+
+					editor.style.display = '';
+					buttonUpdate.style.display = '';
+					buttonShare.display = '';
+
+				}
+
+			}
+
+			update();
+
+		</script>
+	</body>
 </html>

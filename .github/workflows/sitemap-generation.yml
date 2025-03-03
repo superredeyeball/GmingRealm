@@ -1,11 +1,8 @@
 name: Generate sitemap 
 
 on:
-  # Runs on pushes targeting the default branch
   push:
     branches: ["main"]
-
-  # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
 
 jobs:
@@ -29,12 +26,6 @@ jobs:
         echo "sitemap-path = ${{ steps.sitemap.outputs.sitemap-path }}"
         echo "url-count = ${{ steps.sitemap.outputs.url-count }}"
         echo "excluded-count = ${{ steps.sitemap.outputs.excluded-count }}"
-
-    #- name: Print the generated XML file
-    #  run: |
-    #    echo "Generated sitemap:"
-    #    cat "${{ steps.sitemap.outputs.sitemap-path }}"
-    # Gonna have to wait till they make this a feature for now.
 
     - name: Check Git status
       run: git status

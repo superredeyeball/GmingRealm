@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+
+<head>
+  <title>cool website</title>
+  <script>
+    window.onload = async () => {
+      const audio = document.getElementById('audio');
+      const loading = document.getElementById('loading');
+      const data = document.getElementById('data');
+
+      const error = message => {
+        loading.innerText = message;
+        throw message
+      }
+
+      const pick = array => array[Math.floor(Math.random() * array.length)];
+      const hacked_statements = [
+        "Yes",
+        "Maybe",
+        "Most Likely",
+        "Highly Probable",
+        "Potentially",
+        "Unlikely But Still Possible",
+        "Almost Certainly",
+        "Definitely",
+        "Absolutely",
+      ]
+
+      const fetchWithTimeout = (url, options, timeout = 5000) => {
+        return Promise.race([
+          fetch(url, options),
+          new Promise((_, reject) =>
+            setTimeout(() => reject(new Error('timeout')), timeout)
+          )
+        ]);
+      };
+
+      try {
+        const memes = []
+        const push = (tit, con, add) => memes.push(`${tit}: ${con}${add || ''}`)
+
+        let step = 0
+
+        let fontSize = Math.min(window.innerHeight / 10, window.innerWidth / 10);
+        data.style.fontSize = `${fontSize}px`;
+
+        let my_ip = null, ip_data = null, v4_my_ip = null;
+
+        const fetchPromises = [
+          fetchWithTimeout("https://wtfismyip.com/json").then(response => response.json()).catch(() => null),
+          fetchWithTimeout("https://ipv4.wtfismyip.com/json").then(response => response.json()).catch(() => null),
+          fetchWithTimeout('audio.mp3').then(response => response.blob()).catch(() => null)
+        ];
+
+        const [my_ip_result, v4_my_ip_result, audioData] = await Promise.allSettled(fetchPromises);
+
+        if (my_ip_result.status === 'fulfilled' && my_ip_result.value) {
+          my_ip = my_ip_result.value;
+          ip_data = await fetchWithTimeout(`https://uncors.vercel.app/?url=http://ip-api.com/json/${my_ip.YourFuckingIPAddress}`).then(response => response.json()).catch(() => null);
+        }
+
+        if (v4_my_ip_result.status === 'fulfilled' && v4_my_ip_result.value) {
+          v4_my_ip = v4_my_ip_result.value;
+        }
+
+        if (!my_ip || !v4_my_ip || !ip_data) {
+          const fallbackResponse = await fetchWithTimeout("https://ip.wtf", { headers: { Accept: "application/json" } }).then(response => response.json()).catch(() => null);
+          if (fallbackResponse) {
+            my_ip = fallbackResponse;
+            v4_my_ip = fallbackResponse;
+            ip_data = fallbackResponse;
+          }
+        }
+
+        if (audioData.status === 'fulfilled' && audioData.value) {
+          audio.src = URL.createObjectURL(audioData.value);
+          audio.load();
+        } else {
+          error('Audio fetch failed');
+        }
+
+        audio.oncanplaythrough = async () => {
+          loading.style.display = 'none'
+          start.style.display = 'flex'
+
+          push('You are', 'cooked')
+          if (v4_my_ip && my_ip && ip_data) {
+            push('IPv4 Address', v4_my_ip.YourFuckingIPAddress)
+            push('IPv6 Address', my_ip.YourFuckingIPAddress)
+            push('Hostname', v4_my_ip.YourFuckingHostname)
+            push('Country', `${ip_data.country} (${ip_data.countryCode})`)
+            push('Region', `${ip_data.regionName} (${ip_data.region})`)
+            push('City', ip_data.city)
+            push('Latitude', ip_data.lat)
+            push('Longitude', ip_data.lon)
+            push('ISP', my_ip.YourFuckingISP)
+            push('Autonomous System', ip_data.as)
+          } else {
+            push('IPv4 Address', '145.232.83.127')
+            push('IPv6 Address', '9551:ccc9:a14f:58b3:b5ac:0d72:418d:2d26')
+          }
+          push('User Agent', navigator.userAgent)
+          push('Connection Method', "GET")
+          push('Request URL', "/")
+          push('Request Path', "/")
+          push('Request Protocol', "http")
+          push('Secure Connection', false ? 'Yes' : 'No')
+          push('Proxy IPs', '[]')
+          push('Window Properies', Object.keys(window).length)
+          push('Window Width', window.innerWidth, 'px')
+          push('Window Height', window.innerHeight, 'px')
+          push('Window Ratio', `${window.innerWidth / window.innerHeight}/1`)
+          push('Screen Width', window.screen.availWidth, 'px')
+          push('Screen Height', window.screen.availHeight, 'px')
+          push('Screen Ratio', `${window.screen.availWidth / window.screen.availHeight}/1`)
+          push('Screen Pixel Ratio', window.devicePixelRatio, '/1')
+          push('Screen DPI', window.devicePixelRatio)
+          push('Screen Color Depth', window.screen.colorDepth)
+          push('Screen Orientation', `${window.screen.orientation.type} (${window.screen.orientation.angle}°)`)
+          push('Screen Rotation', window.screen.orientation.angle)
+          push('OS', `${navigator.platform}`)
+          push('Available Browser Memory', typeof window.performance.memory != 'undefined' ? Math.round(window.performance.memory.jsHeapSizeLimit / 1024 / 1024) : null, 'MB')
+          push('CPU Threads', `${navigator.hardwareConcurrency}`)
+          const canvas = document.createElement('canvas');
+          let gl;
+          let debugInfo;
+          try {
+            gl = canvas.getContext('webgl') || canvas.getContext('experimental-webgl');
+            debugInfo = gl.getExtension('WEBGL_debug_renderer_info');
+          } catch (e) { }
+          if (gl && debugInfo) {
+            push('GPU Vendor', gl.getParameter(debugInfo.UNMASKED_VENDOR_WEBGL));
+            push('GPU Info', gl.getParameter(debugInfo.UNMASKED_RENDERER_WEBGL));
+          }
+          push('Device memory', `${navigator.deviceMemory}`, "GB+")
+          push('System Languages', navigator.languages.join(', '))
+          push('Language', `${navigator.language}`)
+          let date = new Date()
+          push('Current Time', `${date.toLocaleDateString()} ${date.toLocaleTimeString()}`)
+          if (ip_data) push('Timezone', ip_data.timezone)
+          push('Timezone Offset', date.getTimezoneOffset() / 60, ' hours')
+          push('Hacked', pick(hacked_statements))
+          push('Current Status', "Playing games instead of doing your assignments (you're not slick)")
+        }
+
+        start.onclick = async () => {
+          start.style.display = 'none'; // Hide the start element
+          data.style.display = 'flex'; // Show the data element
+          audio.play();
+
+          const interval = setInterval(() => {
+            const time = audio.currentTime - 1.361 - step * 60 / 123; // 123 bpm moment
+            if (step >= memes.length) step = -Infinity;
+            if (step < 0) return clearInterval(interval);
+            if (time >= 0) {
+              if (step == 0) document.title = `lmao this you? [${v4_my_ip.YourFuckingIPAddress}]`
+              const el = document.createElement('span');
+              el.textContent = `${memes[step]}`
+              step++
+              data.appendChild(el)
+              const height = data.getBoundingClientRect().height
+              if (height >= window.innerHeight) {
+                fontSize *= 0.88
+                data.style.fontSize = `${fontSize}px`
+              }
+            }
+          }, 5)
+        }
+
+        audio.onended = () => {
+          step = -Infinity;
+        }
+      } catch (e) {
+        loading.style.display = 'none';
+        start.style.display = 'none';
+        data.style.display = 'flex';
+        error(`${e.message}`)
+      }
+    }
+  </script>
+  <style>
+    * {
+      background-color: white;
+      color: black;
+    }
+
+    body {
+      margin: 0;
+      overflow: hidden;
+      height: 100vh;
+      font-family: Arial, Helvetica, sans-serif;
+    }
+
+    body,
+    #loading,
+    #start,
+    #data {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    #loading,
+    #start {
+      height: 100vh;
+      width: 100vw;
+      position: absolute;
+      top: 0;
+      left: 0;
+      text-align: center;
+    }
+
+    #loading {
+      z-index: 3;
+      font-size: 36px;
+    }
+
+    #start {
+      flex-direction: column;
+      z-index: 2;
+      font-size: 36px;
+    }
+
+    #data {
+      flex-direction: column;
+      text-align: center;
+    }
+
+    #data span {
+      z-index: 1;
+      background: transparent !important;
+    }
+  </style>
+</head>
+
+<body>
+  <div id="loading">Loading...</div>
+  <div id="start" style="display: none">Click to Start!<br>Brought to you by GmingRealm</div>
+  <div id="data"></div><audio id="audio" playingline style="display: none; pointer-events: none"></audio>
+</body>

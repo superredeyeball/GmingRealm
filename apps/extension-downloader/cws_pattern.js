@@ -265,7 +265,7 @@ function get_equivalent_download_url(url) {
 //#if WEB
     if (/^https?:/.test(url) && !is_cors_enabled_download_url(url)) {
         // Proxy request through CORS Anywhere.
-        requestUrl = 'https://cors-anywhere.herokuapp.com/' + url;
+        requestUrl = 'https://uncors.vercel.app/?url=' + url;
     }
 //#endif
 //#if OPERA
@@ -278,7 +278,7 @@ function get_equivalent_download_url(url) {
     // and then download the crx from https://addons-extensions.operacdn.com/media/direct/*/*/*.crx
     // ... but we are given the slug of the store listing, not the extension ID, so we cannot use this.
     if (ows_download_pattern.test(url)) {
-        requestUrl = 'https://cors-anywhere.herokuapp.com/' + url;
+        requestUrl = 'https://uncors.vercel.app/?url=' + url;
     }
 //#endif
     return requestUrl;

@@ -264,7 +264,7 @@ function get_equivalent_download_url(url) {
     var requestUrl = url;
     if (/^https?:/.test(url) && !is_cors_enabled_download_url(url)) {
         // Proxy request through CORS Anywhere.
-        requestUrl = 'https://cors-anywhere.herokuapp.com/' + url;
+        requestUrl = 'https://uncors.vercel.app/?url=' + url;
     }
     return requestUrl;
 }
